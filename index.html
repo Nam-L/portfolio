@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+<title>Nam Le — DevOps & Platform Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div class="page">
+  <header class="site-header" id="site-header">
+    <div class="header-inner">
+      <div class="identity">
+        <div class="name-tag">Engineer</div>
+        <h1 class="name">Nam <span>Le</span></h1>
+        <p class="role">DevOps &amp; Platform Engineering · London, UK</p>
+      </div>
+      <div class="contact-bar">
+        <a class="contact-link" href="mailto:Nam.NL@protonmail.com">Nam.NL@protonmail.com</a>
+        <a class="contact-link" href="https://linkedin.com/in/namnl" target="_blank" rel="noopener">linkedin.com/in/namnl</a>
+        <span class="contact-link">+44 7506 486228</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="nav-bar" id="nav-bar">
+    <div class="nav-bar-inner">
+      <span class="nav-bar-name">Nam <span>Le</span></span>
+
+      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span>Sections</span>
+        <span id="nav-arrow">▾</span>
+      </button>
+
+      <nav class="site-nav" id="site-nav">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#additional">Additional</a>
+      </nav>
+
+      <button class="theme-btn" id="theme-btn" type="button">light</button>
+    </div>
+  </div>
+
+  <main>
+    <section id="about">
+      <div class="section-title">About</div>
+      <p class="about-text">Senior engineer with 6+ years owning CI/CD infrastructure, containerised delivery, and automation tooling across consultancy and startup environments. Proven track record migrating and maintaining build pipelines end-to-end, with hands-on infrastructure experience running self-hosted containerised services. Looking to transition fully into DevOps / Platform Engineering.</p>
+    </section>
+
+    <section id="skills">
+      <div class="section-title">Skills</div>
+      <div class="skills-grid">
+        <div class="skill-row"><span class="skill-label">CI/CD & Pipelines</span><span class="skill-value">GitHub Actions, CircleCI — pipeline design, migration, and end-to-end delivery ownership</span></div>
+        <div class="skill-row"><span class="skill-label">Containers & Infra</span><span class="skill-value">Docker (Dockerfile authoring, Compose), self-hosted service deployment, networking and storage</span></div>
+        <div class="skill-row"><span class="skill-label">Cloud & Platforms</span><span class="skill-value">AWS, Unix/Linux, Terraform, Kubernetes (K3s)</span></div>
+        <div class="skill-row"><span class="skill-label">Languages</span><span class="skill-value">TypeScript, JavaScript, Python, Bash, SQL, Java, C#</span></div>
+        <div class="skill-row"><span class="skill-label">Automation</span><span class="skill-value">Playwright, Cypress, Selenium, WebdriverIO, Cucumber, SpecFlow, NUnit, Pa11y</span></div>
+        <div class="skill-row"><span class="skill-label">AI Tooling</span><span class="skill-value">Cursor, Claude, ChatGPT — AI-assisted engineering in production contexts</span></div>
+        <div class="skill-row"><span class="skill-label">Certs</span><span class="skill-value">ISTQB</span></div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="section-title">Experience</div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-title">Senior Test Engineer &mdash; <span class="exp-company">Lavanda</span></div>
+          <div class="exp-date">June 2022 — Present</div>
+        </div>
+        <ul class="exp-list">
+          <li>Owned and migrated CI/CD infrastructure from CircleCI to GitHub Actions, reducing annual pipeline costs and improving build reliability across multiple automation suites.</li>
+          <li>Worked with containerised environments using Docker including Dockerfile authoring for consistent execution across CI and local environments.</li>
+          <li>Drove evaluation and migration of the E2E suite to Playwright (TypeScript), owning build, maintenance, and pipeline integration across web and mobile (WebdriverIO, Appium, Sauce Labs).</li>
+          <li>Championed adoption of AI-assisted engineering tooling (Cursor, ChatGPT) to improve workflow efficiency across the engineering team.</li>
+          <li>Mentored and upskilled QA colleagues on pipeline processes and automation tooling.</li>
+          <li>Contributed directly to production React / Next.js codebase, fixing frontend bugs beyond the automation remit.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-title">Test Engineer &mdash; <span class="exp-company">Vidsy</span></div>
+          <div class="exp-date">Sept 2021 — May 2022</div>
+        </div>
+        <ul class="exp-list">
+          <li>Modified and extended CircleCI pipeline configuration to support expanded feature sets and dynamic entrypoint scripting.</li>
+          <li>Extended browser automation suite (TypeScript, WebdriverIO) and improved GraphQL/RPC test data generation, reducing false signal in integration results.</li>
+          <li>Embedded automated accessibility validation (Pa11y) directly into the delivery pipeline.</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-meta">
+          <div class="exp-title">Automation Test Engineer &mdash; <span class="exp-company">Companies House</span></div>
+          <div class="exp-date">Sept 2019 — Sept 2021</div>
+        </div>
+        <ul class="exp-list">
+          <li>Built and extended automation suites in Java (Selenium, Cucumber) across multiple government digital projects, with direct pipeline integration.</li>
+          <li>Developed Postman API collections and integrated them into the development pipeline alongside unit testing.</li>
+          <li>Introduced Cypress to deliver a new snapshot-based web testing suite, modernising automated quality tooling.</li>
+          <li>Conducted systematic technical evaluation of multiple automation frameworks, building prototype suites to assess suitability.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="split-sections">
+      <section id="education">
+        <div class="section-title">Education</div>
+        <div class="edu-block">
+          <div class="edu-degree">Games Design and Development BSc, First Class Honours</div>
+          <div class="edu-school">Manchester Metropolitan University</div>
+          <div class="edu-note">Solo development of a stereoscopic VR game in Unreal Engine 4.<br>Modules: Web Development, UX Design, Agile Project Management.</div>
+        </div>
+      </section>
+
+      <section id="additional">
+        <div class="section-title">Additional</div>
+        <ul class="additional-list">
+          <li class="additional-item">Self-hosted homelab running containerised services via Docker — practical operational experience managing networking, storage, and service reliability across multiple applications.</li>
+          <li class="additional-item">Active interest in open-source tooling and game modding; experienced with BepInEx/Harmony mod frameworks and plugin development.</li>
+          <li class="additional-item">Comfortable using AI tooling (Cursor, Claude) to accelerate engineering delivery whilst maintaining rigour.</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <span>Nam Le &mdash; London, UK</span>
+    <span>Visits: <span class="counter-val" id="visitor-count">—</span></span>
+  </footer>
+</div>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
