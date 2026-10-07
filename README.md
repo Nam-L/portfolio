@@ -47,6 +47,18 @@ Each project is one object in `js/projects.js`. Copy a block to add one, delete 
 
 The site is static, so the form posts to a form service. Create a form at [formspree.io](https://formspree.io) and set `CONTACT_FORM_ENDPOINT` near the bottom of `js/main.js` to its endpoint (e.g. `https://formspree.io/f/abcdwxyz`). Until it's set, submitting opens the visitor's email app with the message pre-filled.
 
+## Checks
+
+Every pull request runs `.github/workflows/ci.yml`: HTML validation, a JS syntax check, and Playwright browser tests (desktop and mobile) that load the site under `/portfolio/` like GitHub Pages, fail on any script error or missing file, check every project's data and images, and click through filters, project details, the CV link and the contact form.
+
+Run them locally:
+
+```sh
+npm install
+npx playwright install chromium
+npm run check
+```
+
 ## Deploy (GitHub Pages)
 
 One-time setup: in the repo go to **Settings → Pages**, set **Source** to "Deploy from a branch", pick `main` and `/ (root)`, and save. The site is then published at https://nam-l.github.io/portfolio/ and updates on every push to `main`.
