@@ -22,66 +22,15 @@
  */
 window.PROJECTS = [
   {
-    id: 'ci-migration',
-    title: 'CircleCI to GitHub Actions migration',
-    summary: 'Moved multiple automation suites to GitHub Actions, cutting pipeline costs and improving build reliability.',
-    description: [
-      'Placeholder write-up. Describe the problem, what you owned, and the outcome.',
-      'For example: reusable workflows, caching strategy, matrix builds across web and mobile suites, and how cost and flakiness were measured before and after.'
-    ],
-    year: '2023',
-    tags: ['CI/CD', 'GitHub Actions', 'Docker'],
-    cover: 'assets/projects/ci-migration.svg',
-    images: [
-      { src: 'assets/projects/ci-migration.svg', alt: 'Pipeline overview (placeholder)' }
-    ],
-    video: '',
-    github: '',
-    links: []
-  },
-  {
-    id: 'homelab',
-    title: 'Self-hosted homelab',
-    summary: 'Containerised services on a home server, covering networking, storage and service reliability.',
-    description: [
-      'Placeholder write-up. List the services you run, how they are deployed (Docker Compose, K3s), and how you handle backups, updates and monitoring.'
-    ],
-    year: '2021 — Present',
-    tags: ['Docker', 'Kubernetes', 'Linux'],
-    cover: 'assets/projects/homelab.svg',
-    images: [
-      { src: 'assets/projects/homelab.svg', alt: 'Homelab dashboard (placeholder)' },
-      { src: 'assets/projects/homelab-2.svg', alt: 'Service layout (placeholder)' }
-    ],
-    video: '',
-    github: 'https://github.com/Nam-L',
-    links: []
-  },
-  {
-    id: 'portfolio',
-    title: 'This site',
-    summary: 'This portfolio, hosted for free on GitHub Pages.',
-    description: [
-      'Plain HTML, CSS and JavaScript with no build step. Every push to main is published automatically by GitHub Pages.'
-    ],
-    year: '2026',
-    tags: ['JavaScript', 'GitHub Pages'],
-    cover: 'assets/projects/portfolio.svg',
-    images: [],
-    video: '',
-    github: 'https://github.com/Nam-L/portfolio',
-    links: []
-  },
-  {
     id: 'vr-game',
     title: 'Stereoscopic VR game',
     summary: 'Solo-developed VR game in Unreal Engine 4 for my final-year university project.',
     description: [
-      'Placeholder write-up. Describe the concept, the technical challenges of stereoscopic rendering and comfort, and what you would do differently.',
+      'Placeholder write-up. Describe the concept and core loop, your role (design, programming, art), and the technical challenges of stereoscopic rendering and VR comfort.',
       'Add a showreel by setting the video field to a YouTube or Vimeo link.'
     ],
     year: '2019',
-    tags: ['Unreal Engine', 'Game Dev'],
+    tags: ['Unreal Engine', 'VR', 'Solo'],
     cover: 'assets/projects/vr-game.svg',
     images: [
       { src: 'assets/projects/vr-game.svg', alt: 'Gameplay (placeholder)' },
@@ -94,16 +43,64 @@ window.PROJECTS = [
   {
     id: 'game-mod',
     title: 'Game mod plugin',
-    summary: 'A plugin built with the BepInEx and Harmony modding frameworks.',
+    summary: 'A gameplay mod built with the BepInEx and Harmony modding frameworks.',
     description: [
-      'Placeholder write-up. What the mod does, which game it targets, and anything interesting about patching with Harmony.'
+      'Placeholder write-up. What the mod changes, which game it targets, and anything interesting about patching game code at runtime with Harmony.'
     ],
     year: '2024',
-    tags: ['C#', 'Game Dev'],
+    tags: ['C#', 'Modding'],
     cover: 'assets/projects/game-mod.svg',
     images: [
       { src: 'assets/projects/game-mod.svg', alt: 'Mod in game (placeholder)' }
     ],
+    video: '',
+    github: '',
+    links: []
+  },
+  {
+    id: 'gameplay-prototype',
+    title: 'Gameplay prototype',
+    summary: 'Placeholder for a small prototype exploring a single mechanic.',
+    description: [
+      'Placeholder write-up. The mechanic you were testing, what you learned from playtesting, and how you iterated.'
+    ],
+    year: '2025',
+    tags: ['Prototype', 'Gameplay'],
+    cover: 'assets/projects/prototype.svg',
+    images: [
+      { src: 'assets/projects/prototype.svg', alt: 'Prototype (placeholder)' },
+      { src: 'assets/projects/prototype-2.svg', alt: 'Level blockout (placeholder)' }
+    ],
+    video: '',
+    github: '',
+    links: []
+  },
+  {
+    id: 'game-jam',
+    title: 'Game jam entry',
+    summary: 'Placeholder for a game built in a weekend jam.',
+    description: [
+      'Placeholder write-up. The jam theme, team size and your role, and what you shipped in the time limit.'
+    ],
+    year: '2025',
+    tags: ['Game Jam', 'Gameplay'],
+    cover: 'assets/projects/game-jam.svg',
+    images: [],
+    video: '',
+    github: '',
+    links: []
+  },
+  {
+    id: 'build-tools',
+    title: 'Automated build and test pipeline',
+    summary: 'Placeholder for tooling that builds and tests a game project on every change.',
+    description: [
+      'Placeholder write-up. Draw on your CI and test automation experience: automated builds, smoke tests and how it sped up iteration for the team.'
+    ],
+    year: '2025',
+    tags: ['Tools', 'C#'],
+    cover: 'assets/projects/tools.svg',
+    images: [],
     video: '',
     github: '',
     links: []

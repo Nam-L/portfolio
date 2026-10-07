@@ -34,7 +34,7 @@ Each project is one object in `js/projects.js`. Copy a block to add one, delete 
   summary: 'Shown on the card.',
   description: ['Paragraph one.', 'Paragraph two.'],
   year: '2025',
-  tags: ['Docker', 'AWS'],
+  tags: ['Unreal Engine', 'VR'],
   cover: 'assets/projects/my-project.jpg',
   images: [{ src: 'assets/projects/my-project-2.jpg', alt: 'Dashboard' }],
   video: 'https://www.youtube.com/watch?v=VIDEO_ID', // YouTube, Vimeo, or an .mp4/.webm path
@@ -49,7 +49,7 @@ The site is static, so the form posts to a form service. Create a form at [forms
 
 ## Checks
 
-Every pull request runs `.github/workflows/ci.yml`: HTML validation, a JS syntax check, and Playwright browser tests (desktop and mobile) that load the site under `/portfolio/` like GitHub Pages, fail on any script error or missing file, check every project's data and images, and click through filters, project details, the CV link and the contact form.
+Every pull request runs `.github/workflows/ci.yml`: a [gitleaks](https://github.com/gitleaks/gitleaks) scan for committed secrets, HTML validation, a JS syntax check, and Playwright browser tests (desktop and mobile) that load the site under `/portfolio/` like GitHub Pages, fail on any script error or missing file, check every project's data and images, and click through filters, project details, the CV link and the contact form.
 
 Run them locally:
 
@@ -58,6 +58,8 @@ npm install
 npx playwright install chromium
 npm run check
 ```
+
+If you add a video host or a form service other than YouTube, Vimeo or Formspree, add its domain to the `Content-Security-Policy` meta tag in `index.html`, or the browser will block it.
 
 ## Deploy (GitHub Pages)
 

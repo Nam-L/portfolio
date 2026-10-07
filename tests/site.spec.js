@@ -5,6 +5,9 @@ const { test, expect } = require('@playwright/test');
 test.beforeEach(async ({ page }) => {
   const problems = [];
   page.on('pageerror', e => problems.push(`page error: ${e.message}`));
+  page.on('console', m => {
+    if (m.text().includes('Content Security Policy')) problems.push(`CSP: ${m.text()}`);
+  });
   page.on('response', r => {
     if (r.url().startsWith('http://localhost') && r.status() >= 400) problems.push(`${r.status()} ${r.url()}`);
   });
