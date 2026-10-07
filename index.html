@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-<title>Nam Le — DevOps & Platform Engineer</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; frame-src https://www.youtube-nocookie.com https://player.vimeo.com; connect-src 'self' https://formspree.io; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Nam Le — Game Developer</title>
+<meta name="description" content="Game development portfolio of Nam Le: projects, showreels, skills and CV.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -15,13 +18,20 @@
   <header class="site-header" id="site-header">
     <div class="header-inner">
       <div class="identity">
-        <div class="name-tag">Engineer</div>
+        <div class="name-tag">Game Developer</div>
         <h1 class="name">Nam <span>Le</span></h1>
-        <p class="role">DevOps &amp; Platform Engineering · London, UK</p>
+        <p class="role">Game Development · London, UK</p>
       </div>
-      <div class="contact-bar">
-        <a class="contact-link" href="mailto:Nam.NL@protonmail.com">Nam.NL@protonmail.com</a>
-        <a class="contact-link" href="https://linkedin.com/in/namnl" target="_blank" rel="noopener">linkedin.com/in/namnl</a>
+      <div class="header-side">
+        <div class="contact-bar">
+          <a class="contact-link" href="mailto:Nam.NL@protonmail.com">Nam.NL@protonmail.com</a>
+          <a class="contact-link" href="https://linkedin.com/in/namnl" target="_blank" rel="noopener">linkedin.com/in/namnl</a>
+          <a class="contact-link" href="https://github.com/Nam-L" target="_blank" rel="noopener">github.com/Nam-L</a>
+        </div>
+        <div class="header-actions">
+          <a class="btn btn-primary" href="assets/cv/Nam-Le-CV.pdf" download>Download CV</a>
+          <a class="btn" href="#contact">Get in touch</a>
+        </div>
       </div>
     </div>
   </header>
@@ -37,10 +47,11 @@
 
       <nav class="site-nav" id="site-nav">
         <a href="#about">About</a>
+        <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
         <a href="#experience">Experience</a>
         <a href="#education">Education</a>
-        <a href="#additional">Additional</a>
+        <a href="#contact">Contact</a>
       </nav>
 
       <button class="theme-btn" id="theme-btn" type="button">light</button>
@@ -50,19 +61,26 @@
   <main>
     <section id="about">
       <div class="section-title">About</div>
-      <p class="about-text">Senior engineer with 6+ years owning CI/CD infrastructure, containerised delivery, and automation tooling across consultancy and startup environments. Proven track record migrating and maintaining build pipelines end-to-end, with hands-on infrastructure experience running self-hosted containerised services. Looking to transition fully into DevOps / Platform Engineering.</p>
+      <p class="about-text">Game developer with a First Class BSc in Games Design and Development, where I solo-developed a stereoscopic VR game in Unreal Engine 4. I also build game mods and plugins with BepInEx and Harmony. Alongside that I bring 6+ years of professional engineering in test automation and build pipelines, so I care about stable builds, fast iteration and catching bugs before players do.</p>
+    </section>
+
+    <section id="projects">
+      <div class="section-title">Projects</div>
+      <div class="project-filters" id="project-filters" role="group" aria-label="Filter projects by tag"></div>
+      <p class="project-empty" id="project-empty" hidden>No projects match that filter.</p>
+      <div class="project-grid" id="project-grid"></div>
+      <noscript><p class="project-empty">Enable JavaScript to browse projects.</p></noscript>
     </section>
 
     <section id="skills">
       <div class="section-title">Skills</div>
       <div class="skills-grid">
-        <div class="skill-row"><span class="skill-label">CI/CD & Pipelines</span><span class="skill-value">GitHub Actions, CircleCI — pipeline design, migration, and end-to-end delivery ownership</span></div>
-        <div class="skill-row"><span class="skill-label">Containers & Infra</span><span class="skill-value">Docker (Dockerfile authoring, Compose), self-hosted service deployment, networking and storage</span></div>
-        <div class="skill-row"><span class="skill-label">Cloud & Platforms</span><span class="skill-value">AWS, Unix/Linux, Terraform, Kubernetes (K3s)</span></div>
-        <div class="skill-row"><span class="skill-label">Languages</span><span class="skill-value">TypeScript, JavaScript, Python, Bash, SQL, Java, C#</span></div>
-        <div class="skill-row"><span class="skill-label">Automation</span><span class="skill-value">Playwright, Cypress, Selenium, WebdriverIO, Cucumber, SpecFlow, NUnit, Pa11y</span></div>
-        <div class="skill-row"><span class="skill-label">AI Tooling</span><span class="skill-value">Cursor, Claude, ChatGPT — AI-assisted engineering in production contexts</span></div>
-        <div class="skill-row"><span class="skill-label">Certs</span><span class="skill-value">ISTQB</span></div>
+        <div class="skill-row"><span class="skill-label">Engines</span><span class="skill-value">Unreal Engine 4, including stereoscopic VR</span></div>
+        <div class="skill-row"><span class="skill-label">Modding</span><span class="skill-value">BepInEx and Harmony: plugin development and runtime patching</span></div>
+        <div class="skill-row"><span class="skill-label">Languages</span><span class="skill-value">C#, TypeScript, JavaScript, Python, Java, SQL, Bash</span></div>
+        <div class="skill-row"><span class="skill-label">Testing &amp; QA</span><span class="skill-value">Test automation and strategy with Playwright, Cypress, Selenium, WebdriverIO, Appium and NUnit; ISTQB certified</span></div>
+        <div class="skill-row"><span class="skill-label">Builds &amp; Tools</span><span class="skill-value">Build pipelines with GitHub Actions and CircleCI, Docker, Git</span></div>
+        <div class="skill-row"><span class="skill-label">Design</span><span class="skill-value">UX design, web development, Agile project management</span></div>
       </div>
     </section>
 
@@ -123,20 +141,69 @@
       <section id="additional">
         <div class="section-title">Additional</div>
         <ul class="additional-list">
-          <li class="additional-item">Self-hosted homelab running containerised services via Docker — practical operational experience managing networking, storage, and service reliability across multiple applications.</li>
-          <li class="additional-item">Active interest in open-source tooling and game modding; experienced with BepInEx/Harmony mod frameworks and plugin development.</li>
+          <li class="additional-item">Active game modder: plugin development with the BepInEx and Harmony frameworks.</li>
+          <li class="additional-item">Self-hosted homelab running containerised services via Docker.</li>
           <li class="additional-item">Comfortable using AI tooling (Cursor, Claude) to accelerate engineering delivery whilst maintaining rigour.</li>
         </ul>
       </section>
     </div>
+
+    <section id="contact">
+      <div class="section-title">Contact</div>
+      <div class="contact-layout">
+        <div class="contact-intro">
+          <p>Open to game development roles, collaborations and game jams, or just a chat. Send a message and I'll get back to you.</p>
+          <dl class="contact-details">
+            <dt>Email</dt><dd><a href="mailto:Nam.NL@protonmail.com">Nam.NL@protonmail.com</a></dd>
+            <dt>LinkedIn</dt><dd><a href="https://linkedin.com/in/namnl" target="_blank" rel="noopener">linkedin.com/in/namnl</a></dd>
+            <dt>GitHub</dt><dd><a href="https://github.com/Nam-L" target="_blank" rel="noopener">github.com/Nam-L</a></dd>
+            <dt>CV</dt><dd><a href="assets/cv/Nam-Le-CV.pdf" download>Download PDF</a></dd>
+          </dl>
+        </div>
+
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="field">
+            <label for="cf-name">Name</label>
+            <input id="cf-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="cf-email">Email</label>
+            <input id="cf-email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" name="message" rows="5" required></textarea>
+          </div>
+          <input class="hp-field" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="form-footer">
+            <button class="btn btn-primary" type="submit">Send message</button>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </section>
   </main>
 
   <footer>
     <span>Nam Le &mdash; London, UK</span>
-    <span>Visits: <span class="counter-val" id="visitor-count">—</span></span>
+    <a class="footer-link" href="https://github.com/Nam-L/portfolio" target="_blank" rel="noopener">Source on GitHub</a>
   </footer>
 </div>
 
+<dialog class="project-dialog" id="project-dialog" aria-labelledby="pd-title">
+  <div class="pd-inner">
+    <button class="pd-close" id="pd-close" type="button" aria-label="Close">&times;</button>
+    <div class="pd-media" id="pd-media"></div>
+    <div class="pd-body">
+      <div class="pd-meta" id="pd-meta"></div>
+      <h2 class="pd-title" id="pd-title"></h2>
+      <div class="pd-desc" id="pd-desc"></div>
+      <div class="pd-links" id="pd-links"></div>
+    </div>
+  </div>
+</dialog>
+
+<script src="js/projects.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>

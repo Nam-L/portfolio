@@ -1,0 +1,14 @@
+{
+  "name": "portfolio",
+  "private": true,
+  "description": "Dev tooling only. The site itself has no build step.",
+  "scripts": {
+    "lint": "html-validate index.html && node --check js/main.js && node --check js/projects.js",
+    "test": "playwright test",
+    "check": "npm run lint && npm test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "html-validate": "^9.0.0"
+  }
+}
