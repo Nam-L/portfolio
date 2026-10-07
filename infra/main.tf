@@ -42,18 +42,41 @@ data "aws_iam_policy_document" "site_policy" {
   }
 }
 
-resource "aws_s3_object" "site_files" {
-  for_each = fileset("${path.module}/../", "**/*.{html,css,js}")
+locals {
+  site_root = "${path.module}/.."
 
-  bucket = aws_s3_bucket.site.id
-  key    = each.value
-  source = "${path.module}/../${each.value}"
-  content_type = lookup({
-    "html" = "text/html"
-    "css"  = "text/css"
-    "js"   = "application/javascript"
-  }, split(".", each.value)[length(split(".", each.value)) - 1], "text/plain")
-  etag = filemd5("${path.module}/../${each.value}")
+  content_types = {
+    html = "text/html"
+    css  = "text/css"
+    js   = "application/javascript"
+    json = "application/json"
+    pdf  = "application/pdf"
+    svg  = "image/svg+xml"
+    png  = "image/png"
+    jpg  = "image/jpeg"
+    jpeg = "image/jpeg"
+    webp = "image/webp"
+    gif  = "image/gif"
+    ico  = "image/x-icon"
+    mp4  = "video/mp4"
+    webm = "video/webm"
+  }
+
+  # Everything the site serves: root pages plus css/, js/ and assets/
+  site_files = setunion(
+    fileset(local.site_root, "*.html"),
+    fileset(local.site_root, "{css,js,assets}/**/*.{${join(",", keys(local.content_types))}}"),
+  )
+}
+
+resource "aws_s3_object" "site_files" {
+  for_each = local.site_files
+
+  bucket       = aws_s3_bucket.site.id
+  key          = each.value
+  source       = "${local.site_root}/${each.value}"
+  content_type = lookup(local.content_types, lower(reverse(split(".", each.value))[0]), "application/octet-stream")
+  etag         = filemd5("${local.site_root}/${each.value}")
 }
 
 resource "aws_s3_bucket_policy" "site_policy" {

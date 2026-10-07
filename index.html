@@ -19,10 +19,17 @@
         <h1 class="name">Nam <span>Le</span></h1>
         <p class="role">DevOps &amp; Platform Engineering · London, UK</p>
       </div>
-      <div class="contact-bar">
-        <a class="contact-link" href="mailto:Nam.NL@protonmail.com">Nam.NL@protonmail.com</a>
-        <a class="contact-link" href="https://linkedin.com/in/namnl" target="_blank" rel="noopener">linkedin.com/in/namnl</a>
-        <span class="contact-link">+44 7506 486228</span>
+      <div class="header-side">
+        <div class="contact-bar">
+          <a class="contact-link" href="mailto:Nam.NL@protonmail.com">Nam.NL@protonmail.com</a>
+          <a class="contact-link" href="https://linkedin.com/in/namnl" target="_blank" rel="noopener">linkedin.com/in/namnl</a>
+          <a class="contact-link" href="https://github.com/Nam-L" target="_blank" rel="noopener">github.com/Nam-L</a>
+          <span class="contact-link">+44 7506 486228</span>
+        </div>
+        <div class="header-actions">
+          <a class="btn btn-primary" href="assets/cv/Nam-Le-CV.pdf" download>Download CV</a>
+          <a class="btn" href="#contact">Get in touch</a>
+        </div>
       </div>
     </div>
   </header>
@@ -39,9 +46,10 @@
       <nav class="site-nav" id="site-nav">
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
         <a href="#experience">Experience</a>
         <a href="#education">Education</a>
-        <a href="#additional">Additional</a>
+        <a href="#contact">Contact</a>
       </nav>
 
       <button class="theme-btn" id="theme-btn" type="button">light</button>
@@ -65,6 +73,14 @@
         <div class="skill-row"><span class="skill-label">AI Tooling</span><span class="skill-value">Cursor, Claude, ChatGPT — AI-assisted engineering in production contexts</span></div>
         <div class="skill-row"><span class="skill-label">Certs</span><span class="skill-value">ISTQB</span></div>
       </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-title">Projects</div>
+      <div class="project-filters" id="project-filters" role="group" aria-label="Filter projects by tag"></div>
+      <p class="project-empty" id="project-empty" hidden>No projects match that filter.</p>
+      <div class="project-grid" id="project-grid"></div>
+      <noscript><p class="project-empty">Enable JavaScript to browse projects.</p></noscript>
     </section>
 
     <section id="experience">
@@ -130,6 +146,41 @@
         </ul>
       </section>
     </div>
+
+    <section id="contact">
+      <div class="section-title">Contact</div>
+      <div class="contact-layout">
+        <div class="contact-intro">
+          <p>Open to DevOps and Platform Engineering roles, freelance work, or just a chat. Send a message and I'll get back to you.</p>
+          <dl class="contact-details">
+            <dt>Email</dt><dd><a href="mailto:Nam.NL@protonmail.com">Nam.NL@protonmail.com</a></dd>
+            <dt>LinkedIn</dt><dd><a href="https://linkedin.com/in/namnl" target="_blank" rel="noopener">linkedin.com/in/namnl</a></dd>
+            <dt>GitHub</dt><dd><a href="https://github.com/Nam-L" target="_blank" rel="noopener">github.com/Nam-L</a></dd>
+            <dt>CV</dt><dd><a href="assets/cv/Nam-Le-CV.pdf" download>Download PDF</a></dd>
+          </dl>
+        </div>
+
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="field">
+            <label for="cf-name">Name</label>
+            <input id="cf-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="cf-email">Email</label>
+            <input id="cf-email" name="email" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" name="message" rows="5" required></textarea>
+          </div>
+          <input class="hp-field" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="form-footer">
+            <button class="btn btn-primary" type="submit">Send message</button>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -138,6 +189,20 @@
   </footer>
 </div>
 
+<dialog class="project-dialog" id="project-dialog" aria-labelledby="pd-title">
+  <div class="pd-inner">
+    <button class="pd-close" id="pd-close" type="button" aria-label="Close">&times;</button>
+    <div class="pd-media" id="pd-media"></div>
+    <div class="pd-body">
+      <div class="pd-meta" id="pd-meta"></div>
+      <h2 class="pd-title" id="pd-title"></h2>
+      <div class="pd-desc" id="pd-desc"></div>
+      <div class="pd-links" id="pd-links"></div>
+    </div>
+  </div>
+</dialog>
+
+<script src="js/projects.js" defer></script>
 <script src="js/main.js" defer></script>
 </body>
 </html>
