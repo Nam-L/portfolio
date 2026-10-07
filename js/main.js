@@ -31,20 +31,6 @@ function initStickyNav() {
   onScroll();
 }
 
-async function updateVisitorCount() {
-  try {
-    const res = await fetch('https://YOUR_API_GATEWAY_URL/count', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
-    });
-    const data = await res.json();
-    const count = data.count ?? data.visitor_count ?? '—';
-    document.getElementById('visitor-count').textContent = Number(count).toLocaleString();
-  } catch {
-    document.getElementById('visitor-count').textContent = '—';
-  }
-}
-
 function initNavHighlight() {
   const navLinks = document.querySelectorAll('.site-nav a');
   const observer = new IntersectionObserver(entries => {
@@ -335,7 +321,6 @@ function initContactForm() {
 document.getElementById('theme-btn').addEventListener('click', toggleTheme);
 document.getElementById('nav-toggle').addEventListener('click', toggleNav);
 initStickyNav();
-updateVisitorCount();
 initNavHighlight();
 initProjects();
 initContactForm();

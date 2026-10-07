@@ -320,11 +320,13 @@ footer {
   gap: 0.5rem;
   background: var(--accent-dim);
 }
-.counter-val {
+.footer-link {
   font-family: var(--mono);
-  color: var(--accent);
-  font-weight: 500;
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-decoration: none;
 }
+.footer-link:hover { color: var(--accent); }
 
 /* ── Buttons ── */
 .btn {

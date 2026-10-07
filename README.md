@@ -13,7 +13,7 @@ Personal portfolio site. Static HTML/CSS/JS — no build step.
 ├── assets/
 │   ├── cv/Nam-Le-CV.pdf # "Download CV" target
 │   └── projects/        # project images and videos
-└── infra/               # Terraform: S3 bucket + upload
+└── .nojekyll            # tells GitHub Pages to serve files as-is
 ```
 
 ## Run locally
@@ -47,12 +47,8 @@ Each project is one object in `js/projects.js`. Copy a block to add one, delete 
 
 The site is static, so the form posts to a form service. Create a form at [formspree.io](https://formspree.io) and set `CONTACT_FORM_ENDPOINT` near the bottom of `js/main.js` to its endpoint (e.g. `https://formspree.io/f/abcdwxyz`). Until it's set, submitting opens the visitor's email app with the message pre-filled.
 
-## Deploy
+## Deploy (GitHub Pages)
 
-```sh
-cd infra
-terraform init
-terraform apply
-```
+One-time setup: in the repo go to **Settings → Pages**, set **Source** to "Deploy from a branch", pick `main` and `/ (root)`, and save. The site is then published at https://nam-l.github.io/portfolio/ and updates on every push to `main`.
 
-Uploads `*.html` plus everything under `css/`, `js/` and `assets/` with the right content types.
+To use your own domain later, add it under Settings → Pages → Custom domain.

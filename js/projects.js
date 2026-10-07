@@ -58,21 +58,19 @@ window.PROJECTS = [
     links: []
   },
   {
-    id: 'portfolio-infra',
+    id: 'portfolio',
     title: 'This site',
-    summary: 'Static portfolio hosted on S3 and provisioned with Terraform.',
+    summary: 'This portfolio, hosted for free on GitHub Pages.',
     description: [
-      'Plain HTML, CSS and JavaScript with no build step. Infrastructure lives in the repo under infra/ and deploys with a single terraform apply.'
+      'Plain HTML, CSS and JavaScript with no build step. Every push to main is published automatically by GitHub Pages.'
     ],
     year: '2026',
-    tags: ['AWS', 'Terraform'],
+    tags: ['JavaScript', 'GitHub Pages'],
     cover: 'assets/projects/portfolio.svg',
     images: [],
     video: '',
     github: 'https://github.com/Nam-L/portfolio',
-    links: [
-      { label: 'nam-le.dev', url: 'https://nam-le.dev' }
-    ]
+    links: []
   },
   {
     id: 'vr-game',
