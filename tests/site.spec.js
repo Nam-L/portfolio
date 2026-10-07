@@ -118,7 +118,7 @@ test('video URLs become embeds', async ({ page }) => {
   await page.goto('./');
   const embeds = await page.evaluate(() => {
     const out = {};
-    for (const url of ['https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://youtu.be/dQw4w9WgXcQ', 'https://vimeo.com/76979871', 'assets/clip.mp4']) {
+    for (const url of ['https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://youtu.be/dQw4w9WgXcQ', 'https://vimeo.com/76979871', 'tests/fixtures/clip.mp4']) {
       const el = videoEmbed(url, 't');
       out[url] = el.tagName + ' ' + el.getAttribute('src');
     }
@@ -127,7 +127,7 @@ test('video URLs become embeds', async ({ page }) => {
   expect(embeds['https://www.youtube.com/watch?v=dQw4w9WgXcQ']).toBe('IFRAME https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?rel=0');
   expect(embeds['https://youtu.be/dQw4w9WgXcQ']).toBe('IFRAME https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?rel=0');
   expect(embeds['https://vimeo.com/76979871']).toBe('IFRAME https://player.vimeo.com/video/76979871');
-  expect(embeds['assets/clip.mp4']).toBe('VIDEO assets/clip.mp4');
+  expect(embeds['tests/fixtures/clip.mp4']).toBe('VIDEO tests/fixtures/clip.mp4');
 });
 
 test('contact form validates before sending', async ({ page }) => {
