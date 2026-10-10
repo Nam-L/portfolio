@@ -18,8 +18,21 @@
  *                    'https://vimeo.com/123456789'
  *                    'assets/projects/my-showreel.mp4'
  *   github      Repository URL.
- *   links       [{ label, url }] any extra links (live demo, write-up, store page...).
+ *   links       [{ label, url }] any extra links (playable build, itch.io, write-up...).
+ *   featured    true to show the project as the large card at the top of the grid.
+ *               Put your strongest project first and mark it featured.
+ *   role        Your role, e.g. 'Gameplay programmer' or 'Solo developer'.
+ *   team        Team size, e.g. 'Solo' or 'Team of 4'.
+ *   engine      Engine or framework, e.g. 'Unreal Engine 4'.
+ *   platform    e.g. 'PC', 'PC VR (Oculus Rift)'.
+ *   highlights  Short list of the things you personally built. Shown as
+ *               "What I built" in the expanded view; recruiters look for this.
  */
+
+// Showreel shown under the intro. YouTube or Vimeo URL, or an .mp4/.webm path.
+// Leave empty to hide the section. Aim for 60-90 seconds, best footage first.
+window.SHOWREEL = '';
+
 window.PROJECTS = [
   {
     id: 'vr-game',
@@ -32,6 +45,15 @@ window.PROJECTS = [
     ],
     year: '2018',
     tags: ['Unreal Engine', 'VR', 'Solo'],
+    featured: true,
+    role: 'Solo developer',
+    team: 'Solo',
+    engine: 'Unreal Engine 4',
+    platform: 'PC VR (Oculus Rift)',
+    highlights: [
+      'Placeholder: the systems you built, e.g. motion-controller interaction.',
+      'Placeholder: a technical challenge you solved, e.g. VR comfort or performance.'
+    ],
     cover: 'assets/projects/vr-game.svg',
     images: [
       { src: 'assets/projects/vr-game.svg', alt: 'Gameplay (placeholder)' },
@@ -50,6 +72,8 @@ window.PROJECTS = [
     ],
     year: '2026',
     tags: ['C++', 'Systems'],
+    role: 'Solo developer',
+    team: 'Solo',
     cover: 'assets/projects/systems.svg',
     images: [
       { src: 'assets/projects/systems.svg', alt: 'System overview (placeholder)' }
@@ -67,6 +91,7 @@ window.PROJECTS = [
     ],
     year: '2025',
     tags: ['Prototype', 'Gameplay'],
+    role: 'Gameplay programmer',
     cover: 'assets/projects/prototype.svg',
     images: [
       { src: 'assets/projects/prototype.svg', alt: 'Prototype (placeholder)' },
@@ -85,6 +110,7 @@ window.PROJECTS = [
     ],
     year: '2025',
     tags: ['Game Jam', 'Gameplay'],
+    role: 'Programmer',
     cover: 'assets/projects/game-jam.svg',
     images: [],
     video: '',
@@ -100,6 +126,7 @@ window.PROJECTS = [
     ],
     year: '2025',
     tags: ['Tools', 'CI/CD'],
+    role: 'Tools programmer',
     cover: 'assets/projects/tools.svg',
     images: [],
     video: '',

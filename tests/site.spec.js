@@ -26,15 +26,16 @@ async function projects(page) {
 
 test('page loads with all main sections', async ({ page }) => {
   await page.goto('./');
-  for (const id of ['about', 'skills', 'projects', 'experience', 'education', 'contact']) {
+  for (const id of ['projects', 'about', 'experience', 'contact']) {
     await expect(page.locator(`section#${id}`)).toBeAttached();
   }
   await expect(page.locator('.btn', { hasText: 'Download CV' })).toBeVisible();
+  for (const id of ['skills', 'education']) await expect(page.locator(`#${id}`)).toBeAttached();
 });
 
 test('every nav link points at a section that exists', async ({ page }) => {
   await page.goto('./');
-  const hrefs = await page.locator('.site-nav a').evaluateAll(as => as.map(a => a.getAttribute('href')));
+  const hrefs = await page.locator('.site-nav a[href^="#"]').evaluateAll(as => as.map(a => a.getAttribute('href')));
   for (const href of hrefs) {
     await expect(page.locator(href), href).toBeAttached();
   }
@@ -154,11 +155,51 @@ test('no horizontal overflow on common phone widths', async ({ page }) => {
   }
 });
 
-test('page keeps a 320px minimum width instead of squashing', async ({ page }) => {
-  await page.setViewportSize({ width: 260, height: 800 });
+test('narrow windows scale the 320px layout down instead of squashing or scrolling', async ({ page }) => {
+  for (const width of [200, 260, 300]) {
+    await page.setViewportSize({ width, height: 800 });
+    await page.goto('./');
+    const r = await page.evaluate(() => ({
+      layout: document.body.offsetWidth,
+      overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      toggleRight: document.getElementById('nav-toggle').getBoundingClientRect().right,
+      zoom: Number(document.documentElement.style.zoom)
+    }));
+    expect(r.layout, `layout width at ${width}px`).toBe(320);
+    expect(r.zoom, `zoom at ${width}px`).toBeCloseTo(width / 320, 2);
+    expect(r.overflow, `sideways scroll at ${width}px`).toBeLessThanOrEqual(0);
+    expect(r.toggleRight * r.zoom, `menu button on screen at ${width}px`).toBeLessThanOrEqual(width);
+    await page.locator('#nav-toggle').click();
+    await expect(page.locator('#site-nav a[href="#contact"]')).toBeInViewport();
+    await page.keyboard.press('Escape');
+  }
+});
+
+test('header never overlaps or wraps at any width', async ({ page }) => {
   await page.goto('./');
-  const width = await page.evaluate(() => document.body.getBoundingClientRect().width);
-  expect(width).toBeGreaterThanOrEqual(320);
+  for (let width = 320; width <= 1400; width += 10) {
+    await page.setViewportSize({ width, height: 700 });
+    const r = await page.evaluate(() => {
+      const box = s => document.querySelector(s).getBoundingClientRect();
+      const header = box('.site-header');
+      const links = [...document.querySelectorAll('#site-nav a')].map(a => a.getBoundingClientRect());
+      const inline = getComputedStyle(document.getElementById('site-nav')).position !== 'absolute';
+      return {
+        headerH: header.height, brandR: box('.brand').right, actL: box('.header-actions').left,
+        actR: box('.header-actions').right, vw: document.documentElement.clientWidth, inline,
+        navL: inline ? links[0].left : null, navR: inline ? links[links.length - 1].right : null,
+        spread: inline ? Math.max(...links.map(l => l.top)) - Math.min(...links.map(l => l.top)) : 0
+      };
+    });
+    const at = `at ${width}px`;
+    expect(r.actR, `buttons on screen ${at}`).toBeLessThanOrEqual(r.vw);
+    expect(r.brandR, `brand clear of buttons ${at}`).toBeLessThanOrEqual(r.actL);
+    if (r.inline) {
+      expect(r.spread, `nav on one line ${at}`).toBeLessThan(20);
+      expect(r.navL, `nav clear of brand ${at}`).toBeGreaterThanOrEqual(r.brandR);
+      expect(r.navR, `nav clear of buttons ${at}`).toBeLessThanOrEqual(r.actL);
+    }
+  }
 });
 
 test('mobile menu opens and closes', async ({ page }) => {

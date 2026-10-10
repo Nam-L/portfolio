@@ -8,9 +8,9 @@ Personal portfolio site. Static HTML/CSS/JS — no build step.
 ├── index.html
 ├── css/styles.css
 ├── js/
-│   ├── theme.js         # applies saved or system light/dark theme before first paint
+│   ├── boot.js          # runs before first paint: light/dark theme, 320px minimum width
 │   ├── main.js          # theme toggle, nav, projects grid + detail view, contact form
-│   └── projects.js      # project data (edit this to add/remove projects)
+│   └── projects.js      # project data and showreel link (edit this to add/remove projects)
 ├── assets/
 │   ├── cv/Nam-Le-CV.pdf # "Download CV" target
 │   └── projects/        # project images and videos
@@ -40,9 +40,21 @@ Each project is one object in `js/projects.js`. Copy a block to add one, delete 
   images: [{ src: 'assets/projects/my-project-2.jpg', alt: 'Dashboard' }],
   video: 'https://www.youtube.com/watch?v=VIDEO_ID', // YouTube, Vimeo, or an .mp4/.webm path
   github: 'https://github.com/Nam-L/my-project',
-  links: [{ label: 'Live demo', url: 'https://example.com' }]
+  links: [{ label: 'Play on itch.io', url: 'https://example.itch.io/my-project' }],
+  featured: true,                   // large card at the top of the grid
+  role: 'Gameplay programmer',      // shown on the card and in the details
+  team: 'Team of 4',
+  engine: 'Unreal Engine 5',
+  platform: 'PC',
+  highlights: ['Built the combat system', 'Wrote the save/load system'] // "What I built"
 }
 ```
+
+Put your strongest project first. Recruiters skim, so `role` and `highlights` (what you personally built) matter most.
+
+## Showreel
+
+Set `window.SHOWREEL` at the top of `js/projects.js` to a YouTube or Vimeo link (or an .mp4/.webm path) and a showreel section appears under the intro. Leave it empty to hide it.
 
 ## Contact form
 
@@ -50,7 +62,7 @@ The site is static, so the form posts to a form service. Create a form at [forms
 
 ## Checks
 
-Every pull request runs `.github/workflows/ci.yml`: a [gitleaks](https://github.com/gitleaks/gitleaks) scan for committed secrets, HTML validation, a JS syntax check, and Playwright browser tests (desktop and mobile) that load the site under `/portfolio/` like GitHub Pages, fail on any script error or missing file, check every project's data and images, and click through filters, project details, the CV link and the contact form. They also check the layout never overflows on phone widths (320px and up) and that the page holds a 320px minimum width rather than squashing.
+Every pull request runs `.github/workflows/ci.yml`: a [gitleaks](https://github.com/gitleaks/gitleaks) scan for committed secrets, HTML validation, a JS syntax check, and Playwright browser tests (desktop and mobile) that load the site under `/portfolio/` like GitHub Pages, fail on any script error or missing file, check every project's data and images, and click through filters, project details, the CV link and the contact form. They also check the layout never overflows on phone widths, the header never overlaps or wraps at any width from 320px to 1400px, and that windows narrower than 320px scale the page down instead of squashing it or scrolling sideways.
 
 Run them locally:
 
