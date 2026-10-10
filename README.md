@@ -8,7 +8,8 @@ Personal portfolio site. Static HTML/CSS/JS — no build step.
 ├── index.html
 ├── css/styles.css
 ├── js/
-│   ├── main.js          # theme, nav, projects grid + detail view, contact form
+│   ├── theme.js         # applies saved or system light/dark theme before first paint
+│   ├── main.js          # theme toggle, nav, projects grid + detail view, contact form
 │   └── projects.js      # project data (edit this to add/remove projects)
 ├── assets/
 │   ├── cv/Nam-Le-CV.pdf # "Download CV" target
@@ -49,7 +50,7 @@ The site is static, so the form posts to a form service. Create a form at [forms
 
 ## Checks
 
-Every pull request runs `.github/workflows/ci.yml`: a [gitleaks](https://github.com/gitleaks/gitleaks) scan for committed secrets, HTML validation, a JS syntax check, and Playwright browser tests (desktop and mobile) that load the site under `/portfolio/` like GitHub Pages, fail on any script error or missing file, check every project's data and images, and click through filters, project details, the CV link and the contact form.
+Every pull request runs `.github/workflows/ci.yml`: a [gitleaks](https://github.com/gitleaks/gitleaks) scan for committed secrets, HTML validation, a JS syntax check, and Playwright browser tests (desktop and mobile) that load the site under `/portfolio/` like GitHub Pages, fail on any script error or missing file, check every project's data and images, and click through filters, project details, the CV link and the contact form. They also check the layout never overflows on phone widths (320px and up) and that the page holds a 320px minimum width rather than squashing.
 
 Run them locally:
 

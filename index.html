@@ -2,173 +2,256 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; frame-src https://www.youtube-nocookie.com https://player.vimeo.com; connect-src 'self' https://formspree.io; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<title>Nam Le — Game Developer</title>
-<meta name="description" content="Game development portfolio of Nam Le: projects, showreels, skills and CV.">
+<title>Nam Le — Gameplay &amp; Systems Programmer</title>
+<meta name="description" content="Nam Le: games design graduate and software engineer moving into gameplay and systems programming. Projects, skills, experience and CV.">
+<meta name="color-scheme" content="dark light">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
+<script src="js/theme.js"></script>
 </head>
 <body>
 
-<div class="page">
-  <header class="site-header" id="site-header">
-    <div class="header-inner">
-      <div class="identity">
-        <div class="name-tag">Game Developer</div>
-        <h1 class="name">Nam <span>Le</span></h1>
-        <p class="role">Game Development · London, UK</p>
-      </div>
-      <div class="header-side">
-        <div class="contact-bar">
-          <a class="contact-link" href="mailto:Nam.NL@protonmail.com">Nam.NL@protonmail.com</a>
-          <a class="contact-link" href="https://linkedin.com/in/namnl" target="_blank" rel="noopener">linkedin.com/in/namnl</a>
-          <a class="contact-link" href="https://github.com/Nam-L" target="_blank" rel="noopener">github.com/Nam-L</a>
-        </div>
-        <div class="header-actions">
-          <a class="btn btn-primary" href="assets/cv/Nam-Le-CV.pdf" download>Download CV</a>
-          <a class="btn" href="#contact">Get in touch</a>
-        </div>
-      </div>
-    </div>
-  </header>
+<a class="skip-link" href="#main">Skip to content</a>
 
-  <div class="nav-bar" id="nav-bar">
-    <div class="nav-bar-inner">
-      <span class="nav-bar-name">Nam <span>Le</span></span>
+<header class="site-header" id="nav-bar">
+  <div class="container header-inner">
+    <a class="brand" href="#top" aria-label="Nam Le, back to top">
+      <span class="brand-mark" aria-hidden="true">NL</span>
+      <span class="brand-name">Nam Le</span>
+    </a>
 
-      <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-        <span>Sections</span>
-        <span id="nav-arrow">▾</span>
+    <nav class="site-nav" id="site-nav" aria-label="Sections">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="theme-btn" type="button" aria-label="Switch to light theme">
+        <svg class="icon icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
       </button>
-
-      <nav class="site-nav" id="site-nav">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#experience">Experience</a>
-        <a href="#education">Education</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <button class="theme-btn" id="theme-btn" type="button">light</button>
+      <button class="icon-btn nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
     </div>
   </div>
+</header>
 
-  <main>
-    <section id="about">
-      <div class="section-title">About</div>
-      <p class="about-text">Game developer with a First Class BSc in Games Design and Development, where I solo-developed a stereoscopic VR game in Unreal Engine 4. I also build game mods and plugins with BepInEx and Harmony. Alongside that I bring 6+ years of professional engineering in test automation and build pipelines, so I care about stable builds, fast iteration and catching bugs before players do.</p>
-    </section>
+<main id="main">
+  <section class="hero" id="top">
+    <div class="container hero-inner">
+      <p class="eyebrow">Gameplay &amp; Systems Programmer</p>
+      <h1 class="hero-title">Nam Le</h1>
+      <p class="hero-lede">First Class Games Design and Development graduate with 6+ years of professional software engineering, moving into the games industry as a gameplay or systems programmer.</p>
+      <p class="hero-meta">
+        <span>London, UK</span>
+        <span aria-hidden="true">·</span>
+        <span>Open to relocation</span>
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="assets/cv/Nam-Le-CV.pdf" download>
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+          Download CV
+        </a>
+        <a class="btn" href="#contact">Get in touch</a>
+      </div>
+      <ul class="social-links">
+        <li><a href="https://github.com/Nam-L" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+          <span>GitHub</span></a></li>
+        <li><a href="https://linkedin.com/in/namnl" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>
+          <span>LinkedIn</span></a></li>
+        <li><a href="mailto:Nam.NL@protonmail.com" aria-label="Email">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 6-10 7L2 6"/></svg>
+          <span>Email</span></a></li>
+      </ul>
+    </div>
+  </section>
 
-    <section id="projects">
-      <div class="section-title">Projects</div>
+  <section class="section" id="about">
+    <div class="container">
+      <header class="section-head">
+        <span class="section-index">01</span>
+        <h2>About</h2>
+      </header>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I'm an engineer with a First Class Honours degree in Games Design and Development and more than six years of professional software engineering behind me. I'm passionate about games and systems programming, and I bring a strong foundation in engineering discipline: delivery pipelines, code quality and collaborative development.</p>
+          <p>I'm now actively pursuing a move into the games industry as a gameplay or systems programmer, and I'm learning C++ to get there.</p>
+          <h3 class="subhead">Beyond work</h3>
+          <ul class="plain-list">
+            <li>A deep love of games across JRPGs, MMOs, rhythm games and retro gaming. I'm an active Final Fantasy XIV and Destiny 2 player with a real interest in game systems design and player experience.</li>
+            <li>A self-hosted homelab running containerised services in Docker, which keeps my hands on networking, storage and service reliability.</li>
+          </ul>
+        </div>
+        <dl class="facts">
+          <div><dt>Degree</dt><dd>BSc Games Design &amp; Development, First Class</dd></div>
+          <div><dt>Experience</dt><dd>6+ years in software engineering</dd></div>
+          <div><dt>Focus</dt><dd>Gameplay and systems programming</dd></div>
+          <div><dt>Currently learning</dt><dd>C++</dd></div>
+          <div><dt>Location</dt><dd>London, UK. Open to relocation</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="projects">
+    <div class="container">
+      <header class="section-head">
+        <span class="section-index">02</span>
+        <h2>Projects</h2>
+      </header>
       <div class="project-filters" id="project-filters" role="group" aria-label="Filter projects by tag"></div>
       <p class="project-empty" id="project-empty" hidden>No projects match that filter.</p>
       <div class="project-grid" id="project-grid"></div>
       <noscript><p class="project-empty">Enable JavaScript to browse projects.</p></noscript>
-    </section>
-
-    <section id="skills">
-      <div class="section-title">Skills</div>
-      <div class="skills-grid">
-        <div class="skill-row"><span class="skill-label">Engines</span><span class="skill-value">Unreal Engine 4, including stereoscopic VR</span></div>
-        <div class="skill-row"><span class="skill-label">Modding</span><span class="skill-value">BepInEx and Harmony: plugin development and runtime patching</span></div>
-        <div class="skill-row"><span class="skill-label">Languages</span><span class="skill-value">C#, TypeScript, JavaScript, Python, Java, SQL, Bash</span></div>
-        <div class="skill-row"><span class="skill-label">Testing &amp; QA</span><span class="skill-value">Test automation and strategy with Playwright, Cypress, Selenium, WebdriverIO, Appium and NUnit; ISTQB certified</span></div>
-        <div class="skill-row"><span class="skill-label">Builds &amp; Tools</span><span class="skill-value">Build pipelines with GitHub Actions and CircleCI, Docker, Git</span></div>
-        <div class="skill-row"><span class="skill-label">Design</span><span class="skill-value">UX design, web development, Agile project management</span></div>
-      </div>
-    </section>
-
-    <section id="experience">
-      <div class="section-title">Experience</div>
-
-      <div class="exp-item">
-        <div class="exp-meta">
-          <div class="exp-title">Senior Test Engineer &mdash; <span class="exp-company">Lavanda</span></div>
-          <div class="exp-date">June 2022 — Present</div>
-        </div>
-        <ul class="exp-list">
-          <li>Owned and migrated CI/CD infrastructure from CircleCI to GitHub Actions, reducing annual pipeline costs and improving build reliability across multiple automation suites.</li>
-          <li>Worked with containerised environments using Docker including Dockerfile authoring for consistent execution across CI and local environments.</li>
-          <li>Drove evaluation and migration of the E2E suite to Playwright (TypeScript), owning build, maintenance, and pipeline integration across web and mobile (WebdriverIO, Appium, Sauce Labs).</li>
-          <li>Championed adoption of AI-assisted engineering tooling (Cursor, ChatGPT) to improve workflow efficiency across the engineering team.</li>
-          <li>Mentored and upskilled QA colleagues on pipeline processes and automation tooling.</li>
-          <li>Contributed directly to production React / Next.js codebase, fixing frontend bugs beyond the automation remit.</li>
-        </ul>
-      </div>
-
-      <div class="exp-item">
-        <div class="exp-meta">
-          <div class="exp-title">Test Engineer &mdash; <span class="exp-company">Vidsy</span></div>
-          <div class="exp-date">Sept 2021 — May 2022</div>
-        </div>
-        <ul class="exp-list">
-          <li>Modified and extended CircleCI pipeline configuration to support expanded feature sets and dynamic entrypoint scripting.</li>
-          <li>Extended browser automation suite (TypeScript, WebdriverIO) and improved GraphQL/RPC test data generation, reducing false signal in integration results.</li>
-          <li>Embedded automated accessibility validation (Pa11y) directly into the delivery pipeline.</li>
-        </ul>
-      </div>
-
-      <div class="exp-item">
-        <div class="exp-meta">
-          <div class="exp-title">Automation Test Engineer &mdash; <span class="exp-company">Companies House</span></div>
-          <div class="exp-date">Sept 2019 — Sept 2021</div>
-        </div>
-        <ul class="exp-list">
-          <li>Built and extended automation suites in Java (Selenium, Cucumber) across multiple government digital projects, with direct pipeline integration.</li>
-          <li>Developed Postman API collections and integrated them into the development pipeline alongside unit testing.</li>
-          <li>Introduced Cypress to deliver a new snapshot-based web testing suite, modernising automated quality tooling.</li>
-          <li>Conducted systematic technical evaluation of multiple automation frameworks, building prototype suites to assess suitability.</li>
-        </ul>
-      </div>
-    </section>
-
-    <div class="split-sections">
-      <section id="education">
-        <div class="section-title">Education</div>
-        <div class="edu-block">
-          <div class="edu-degree">Games Design and Development BSc, First Class Honours</div>
-          <div class="edu-school">Manchester Metropolitan University</div>
-          <div class="edu-note">Solo development of a stereoscopic VR game in Unreal Engine 4.<br>Modules: Web Development, UX Design, Agile Project Management.</div>
-        </div>
-      </section>
-
-      <section id="additional">
-        <div class="section-title">Additional</div>
-        <ul class="additional-list">
-          <li class="additional-item">Active game modder: plugin development with the BepInEx and Harmony frameworks.</li>
-          <li class="additional-item">Self-hosted homelab running containerised services via Docker.</li>
-          <li class="additional-item">Comfortable using AI tooling (Cursor, Claude) to accelerate engineering delivery whilst maintaining rigour.</li>
-        </ul>
-      </section>
     </div>
+  </section>
 
-    <section id="contact">
-      <div class="section-title">Contact</div>
+  <section class="section" id="skills">
+    <div class="container">
+      <header class="section-head">
+        <span class="section-index">03</span>
+        <h2>Skills</h2>
+      </header>
+      <div class="skill-grid">
+        <article class="skill-card">
+          <h3>Languages</h3>
+          <ul class="chip-list">
+            <li>C#</li><li>Python</li><li>TypeScript</li><li>JavaScript</li><li>Java</li><li>Bash</li><li>SQL</li><li class="chip-learning">C++ (learning)</li>
+          </ul>
+        </article>
+        <article class="skill-card">
+          <h3>Game development</h3>
+          <ul class="chip-list">
+            <li>Unreal Engine 4</li><li>VR development</li><li>Game systems design</li><li>Game engine architecture</li>
+          </ul>
+        </article>
+        <article class="skill-card">
+          <h3>Engineering &amp; tooling</h3>
+          <ul class="chip-list">
+            <li>GitHub Actions</li><li>CircleCI</li><li>Docker</li><li>AWS</li><li>CI/CD pipelines</li><li>Delivery automation</li>
+          </ul>
+        </article>
+        <article class="skill-card">
+          <h3>Systems &amp; infrastructure</h3>
+          <ul class="chip-list">
+            <li>Unix/Linux</li><li>Self-hosted services</li><li>Networking</li><li>Storage</li>
+          </ul>
+        </article>
+        <article class="skill-card">
+          <h3>Version control</h3>
+          <ul class="chip-list">
+            <li>Git</li><li>Branching strategies</li><li>Code review</li><li>Collaborative workflows</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="experience">
+    <div class="container">
+      <header class="section-head">
+        <span class="section-index">04</span>
+        <h2>Experience</h2>
+      </header>
+      <ol class="timeline">
+        <li class="timeline-item">
+          <div class="timeline-head">
+            <h3>Software Developer in Test <span class="at">at</span> <span class="company">Lavanda</span></h3>
+            <span class="date">June 2022 — Present</span>
+          </div>
+          <ul class="plain-list">
+            <li>Owned and migrated CI/CD infrastructure from CircleCI to GitHub Actions, taking end-to-end ownership of the delivery pipeline.</li>
+            <li>Contributed directly to the production React / Next.js codebase, fixing frontend bugs beyond a single engineering discipline.</li>
+            <li>Drove framework evaluation and tooling adoption across the engineering team, applying systematic technical decision making to real production systems.</li>
+            <li>Worked with containerised environments in Docker, including Dockerfile authoring for consistent execution across CI and local environments.</li>
+          </ul>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-head">
+            <h3>Test Engineer <span class="at">at</span> <span class="company">Vidsy</span></h3>
+            <span class="date">Sept 2021 — May 2022</span>
+          </div>
+          <ul class="plain-list">
+            <li>Extended and maintained delivery pipelines (CircleCI) and browser automation suites (TypeScript, WebdriverIO) in a fast-moving startup.</li>
+            <li>Improved API test data generation for GraphQL and RPC integrations, reducing false signal in integration results.</li>
+          </ul>
+        </li>
+        <li class="timeline-item">
+          <div class="timeline-head">
+            <h3>Automation Test Engineer <span class="at">at</span> <span class="company">Companies House</span></h3>
+            <span class="date">Sept 2019 — Sept 2021</span>
+          </div>
+          <ul class="plain-list">
+            <li>Built automation suites across multiple government digital projects in Java (Selenium, Cucumber) with direct pipeline integration.</li>
+            <li>Ran systematic technical evaluations of multiple frameworks, building prototype implementations to inform the decision.</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="education">
+    <div class="container">
+      <header class="section-head">
+        <span class="section-index">05</span>
+        <h2>Education</h2>
+      </header>
+      <article class="edu-card">
+        <div class="timeline-head">
+          <h3>BSc Games Design and Development <span class="badge-first">First Class Honours</span></h3>
+          <span class="date">2016 — 2018</span>
+        </div>
+        <p class="edu-school">Manchester Metropolitan University</p>
+        <ul class="plain-list">
+          <li>Solo development of a stereoscopic VR game in Unreal Engine 4 for Oculus Rift and motion controllers, covering the full development lifecycle from concept through delivery.</li>
+        </ul>
+        <p class="mini-label">Modules</p>
+        <ul class="chip-list">
+          <li>Game Engine Architecture</li><li>Web Development</li><li>UX Design</li><li>Agile Project Management</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="contact">
+    <div class="container">
+      <header class="section-head">
+        <span class="section-index">06</span>
+        <h2>Contact</h2>
+      </header>
       <div class="contact-layout">
         <div class="contact-intro">
-          <p>Open to game development roles, collaborations and game jams, or just a chat. Send a message and I'll get back to you.</p>
+          <p>I'm looking for gameplay or systems programming roles, and I'm open to relocating for the right opportunity. Send a message and I'll get back to you.</p>
           <dl class="contact-details">
-            <dt>Email</dt><dd><a href="mailto:Nam.NL@protonmail.com">Nam.NL@protonmail.com</a></dd>
-            <dt>LinkedIn</dt><dd><a href="https://linkedin.com/in/namnl" target="_blank" rel="noopener">linkedin.com/in/namnl</a></dd>
-            <dt>GitHub</dt><dd><a href="https://github.com/Nam-L" target="_blank" rel="noopener">github.com/Nam-L</a></dd>
-            <dt>CV</dt><dd><a href="assets/cv/Nam-Le-CV.pdf" download>Download PDF</a></dd>
+            <div><dt>Email</dt><dd><a href="mailto:Nam.NL@protonmail.com">Nam.NL@protonmail.com</a></dd></div>
+            <div><dt>LinkedIn</dt><dd><a href="https://linkedin.com/in/namnl" target="_blank" rel="noopener">linkedin.com/in/namnl</a></dd></div>
+            <div><dt>GitHub</dt><dd><a href="https://github.com/Nam-L" target="_blank" rel="noopener">github.com/Nam-L</a></dd></div>
+            <div><dt>CV</dt><dd><a href="assets/cv/Nam-Le-CV.pdf" download>Download PDF</a></dd></div>
           </dl>
         </div>
 
         <form class="contact-form" id="contact-form" novalidate>
-          <div class="field">
-            <label for="cf-name">Name</label>
-            <input id="cf-name" name="name" type="text" autocomplete="name" required>
-          </div>
-          <div class="field">
-            <label for="cf-email">Email</label>
-            <input id="cf-email" name="email" type="email" autocomplete="email" required>
+          <div class="field-row">
+            <div class="field">
+              <label for="cf-name">Name</label>
+              <input id="cf-name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="cf-email">Email</label>
+              <input id="cf-email" name="email" type="email" autocomplete="email" required>
+            </div>
           </div>
           <div class="field">
             <label for="cf-message">Message</label>
@@ -181,14 +264,16 @@
           </div>
         </form>
       </div>
-    </section>
-  </main>
+    </div>
+  </section>
+</main>
 
-  <footer>
-    <span>Nam Le &mdash; London, UK</span>
-    <a class="footer-link" href="https://github.com/Nam-L/portfolio" target="_blank" rel="noopener">Source on GitHub</a>
-  </footer>
-</div>
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <span>Nam Le · London, UK</span>
+    <a href="https://github.com/Nam-L/portfolio" target="_blank" rel="noopener">Source on GitHub</a>
+  </div>
+</footer>
 
 <dialog class="project-dialog" id="project-dialog" aria-labelledby="pd-title">
   <div class="pd-inner">
