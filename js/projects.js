@@ -24,12 +24,13 @@ window.PROJECTS = [
   {
     id: 'vr-game',
     title: 'Stereoscopic VR game',
-    summary: 'Solo-developed VR game in Unreal Engine 4 for my final-year university project.',
+    summary: 'Solo-developed stereoscopic VR game in Unreal Engine 4 for Oculus Rift and motion controllers.',
     description: [
-      'Placeholder write-up. Describe the concept and core loop, your role (design, programming, art), and the technical challenges of stereoscopic rendering and VR comfort.',
+      'Final-year university project, taken through the full development lifecycle from concept to delivery.',
+      'Placeholder write-up. Describe the concept and core loop, the systems you built, and the technical challenges of stereoscopic rendering, motion controls and VR comfort.',
       'Add a showreel by setting the video field to a YouTube or Vimeo link.'
     ],
-    year: '2019',
+    year: '2018',
     tags: ['Unreal Engine', 'VR', 'Solo'],
     cover: 'assets/projects/vr-game.svg',
     images: [
@@ -41,17 +42,17 @@ window.PROJECTS = [
     links: []
   },
   {
-    id: 'game-mod',
-    title: 'Game mod plugin',
-    summary: 'A gameplay mod built with the BepInEx and Harmony modding frameworks.',
+    id: 'cpp-systems',
+    title: 'C++ systems project',
+    summary: 'Placeholder for a C++ project built while learning the language, such as an engine subsystem or gameplay framework.',
     description: [
-      'Placeholder write-up. What the mod changes, which game it targets, and anything interesting about patching game code at runtime with Harmony.'
+      'Placeholder write-up. What the system does, the design decisions behind it, and what you learned about memory, performance or architecture along the way.'
     ],
-    year: '2024',
-    tags: ['C#', 'Modding'],
-    cover: 'assets/projects/game-mod.svg',
+    year: '2026',
+    tags: ['C++', 'Systems'],
+    cover: 'assets/projects/systems.svg',
     images: [
-      { src: 'assets/projects/game-mod.svg', alt: 'Mod in game (placeholder)' }
+      { src: 'assets/projects/systems.svg', alt: 'System overview (placeholder)' }
     ],
     video: '',
     github: '',
@@ -95,10 +96,10 @@ window.PROJECTS = [
     title: 'Automated build and test pipeline',
     summary: 'Placeholder for tooling that builds and tests a game project on every change.',
     description: [
-      'Placeholder write-up. Draw on your CI and test automation experience: automated builds, smoke tests and how it sped up iteration for the team.'
+      'Placeholder write-up. Draw on your CI/CD and Docker experience: automated builds, smoke tests and how it sped up iteration for the team.'
     ],
     year: '2025',
-    tags: ['Tools', 'C#'],
+    tags: ['Tools', 'CI/CD'],
     cover: 'assets/projects/tools.svg',
     images: [],
     video: '',

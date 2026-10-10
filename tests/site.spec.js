@@ -144,3 +144,39 @@ test('theme toggle switches between light and dark', async ({ page }) => {
   await page.locator('#theme-btn').click();
   await expect(html).not.toHaveAttribute('data-theme', before);
 });
+
+test('no horizontal overflow on common phone widths', async ({ page }) => {
+  for (const width of [320, 360, 390, 768]) {
+    await page.setViewportSize({ width, height: 800 });
+    await page.goto('./');
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+    expect(overflow, `page overflows at ${width}px`).toBeLessThanOrEqual(0);
+  }
+});
+
+test('page keeps a 320px minimum width instead of squashing', async ({ page }) => {
+  await page.setViewportSize({ width: 260, height: 800 });
+  await page.goto('./');
+  const width = await page.evaluate(() => document.body.getBoundingClientRect().width);
+  expect(width).toBeGreaterThanOrEqual(320);
+});
+
+test('mobile menu opens and closes', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 800 });
+  await page.goto('./');
+  const nav = page.locator('#site-nav');
+  await expect(nav).toBeHidden();
+  await page.locator('#nav-toggle').click();
+  await expect(nav).toBeVisible();
+  await expect(page.locator('#nav-toggle')).toHaveAttribute('aria-expanded', 'true');
+  await nav.locator('a[href="#contact"]').click();
+  await expect(nav).toBeHidden();
+});
+
+test('theme choice is remembered', async ({ page }) => {
+  await page.goto('./');
+  const before = await page.locator('html').getAttribute('data-theme');
+  await page.locator('#theme-btn').click();
+  await page.reload();
+  await expect(page.locator('html')).not.toHaveAttribute('data-theme', before);
+});
