@@ -99,20 +99,25 @@ function renderProjectCard(project) {
     project.github && el('span', { class: 'badge' }, 'Code'),
     project.images && project.images.length > 1 && el('span', { class: 'badge' }, `${project.images.length} images`)
   ];
+  const byline = [project.role, project.engine].filter(Boolean).join(' · ');
 
   return el('button', {
-      class: 'project-card', type: 'button', 'data-id': project.id,
+      class: 'project-card' + (project.featured ? ' is-featured' : ''), type: 'button', 'data-id': project.id,
       'aria-haspopup': 'dialog', 'aria-label': `Open details for ${project.title}`
     },
     el('div', { class: 'project-thumb' + (cover ? '' : ' is-empty') },
-      cover ? el('img', { src: cover, alt: '', loading: 'lazy' }) : el('span', {}, project.title.charAt(0))
+      cover ? el('img', { src: cover, alt: '', loading: 'lazy' }) : el('span', {}, project.title.charAt(0)),
+      project.featured && el('span', { class: 'featured-label' }, 'Featured')
     ),
     el('div', { class: 'project-card-body' },
       el('div', { class: 'project-card-head' },
         el('h3', { class: 'project-title' }, project.title),
         project.year && el('span', { class: 'project-year' }, project.year)
       ),
+      byline && el('p', { class: 'project-byline' }, byline),
       el('p', { class: 'project-summary' }, project.summary),
+      project.featured && project.highlights && project.highlights.length && el('ul', { class: 'plain-list project-highlights' },
+        project.highlights.slice(0, 3).map(h => el('li', {}, h))),
       el('div', { class: 'project-card-foot' },
         el('ul', { class: 'tag-list' }, (project.tags || []).map(t => el('li', { class: 'tag' }, t))),
         el('div', { class: 'badges' }, badges)
@@ -165,6 +170,8 @@ function initProjects() {
   // Detail dialog
   const media = document.getElementById('pd-media');
   const meta = document.getElementById('pd-meta');
+  const facts = document.getElementById('pd-facts');
+  const highlights = document.getElementById('pd-highlights');
   const title = document.getElementById('pd-title');
   const desc = document.getElementById('pd-desc');
   const links = document.getElementById('pd-links');
@@ -218,6 +225,19 @@ function initProjects() {
       el('ul', { class: 'tag-list' }, (project.tags || []).map(t => el('li', { class: 'tag' }, t)))
     );
     title.textContent = project.title;
+
+    const factEls = [['Role', project.role], ['Team', project.team], ['Engine', project.engine], ['Platform', project.platform]]
+      .filter(([, value]) => value)
+      .map(([label, value]) => el('div', {}, el('dt', {}, label), el('dd', {}, value)));
+    facts.replaceChildren(...factEls);
+    facts.hidden = factEls.length === 0;
+
+    const built = project.highlights || [];
+    highlights.replaceChildren(...(built.length ? [
+      el('h3', { class: 'mini-label' }, 'What I built'),
+      el('ul', { class: 'plain-list' }, built.map(h => el('li', {}, h)))
+    ] : []));
+    highlights.hidden = built.length === 0;
     const paragraphs = [].concat(project.description || project.summary || []);
     desc.replaceChildren(...paragraphs.map(p => el('p', {}, p)));
 
@@ -260,6 +280,16 @@ function initProjects() {
   };
   window.addEventListener('hashchange', fromHash);
   fromHash();
+}
+
+/* ── Showreel ── */
+
+function initShowreel() {
+  const url = window.SHOWREEL;
+  const section = document.getElementById('showreel');
+  if (!url || !section) return;
+  document.getElementById('showreel-frame').append(videoEmbed(url, 'Showreel'));
+  section.hidden = false;
 }
 
 /* ── Contact form ── */
@@ -327,5 +357,6 @@ syncThemeButton();
 initNav();
 initStickyNav();
 initNavHighlight();
+initShowreel();
 initProjects();
 initContactForm();
