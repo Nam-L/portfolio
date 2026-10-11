@@ -2,6 +2,8 @@
 title: Automated build and test pipeline
 summary: Placeholder for tooling that builds and tests a game project on every change.
 order: 5
+discipline: Tools & CI
+status: Tool
 year: '2025'
 tags: [Tools, CI/CD]
 role: Tools programmer

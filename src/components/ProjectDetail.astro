@@ -5,8 +5,7 @@ const { project } = Astro.props;
 const p = project.data;
 const { Content } = await render(project);
 const media = [...(p.video ? [{ video: p.video }] : []), ...p.images];
-const facts = [['Role', p.role], ['Team', p.team], ['Engine', p.engine], ['Platform', p.platform]].filter(f => f[1]);
-const links = [...(p.github ? [{ label: 'View on GitHub', url: p.github, primary: true }] : []), ...p.links];
+const facts = [['Role', p.role], ['Team', p.team], ['Length', p.duration], ['Engine', p.engine], ['Platform', p.platform], ['Year', p.year]].filter(f => f[1]);
 ---
 <template data-project={project.id}>
   {media.length > 0 && (
@@ -33,22 +32,39 @@ const links = [...(p.github ? [{ label: 'View on GitHub', url: p.github, primary
     </div>
   )}
   <div class="px-[clamp(1.1rem,4vw,2rem)] pt-6 pb-8">
-    <div class="mb-2.5 flex flex-wrap items-center gap-2.5">
-      {p.year && <span class="font-mono text-xs text-fg-3">{p.year}</span>}
-      {p.tags.map(t => <span class="tag">{t}</span>)}
+    <div class="mb-3 flex flex-wrap items-center gap-2">
+      {p.status && <span class="stamp">{p.status}</span>}
+      <span class="font-mono text-[0.7rem] tracking-widest text-fg-3 uppercase">{p.discipline}</span>
     </div>
-    <h2 id="pd-title" class:list={['mb-4 text-[clamp(1.4rem,3vw,1.75rem)]', !media.length && 'pr-11']}>{p.title}</h2>
-    {facts.length > 0 && (
-      <dl class="mb-5 grid grid-cols-[repeat(auto-fit,minmax(8.5rem,1fr))] gap-x-4 gap-y-3 rounded-lg border border-line bg-surface-2 px-4 py-3.5">
-        {facts.map(([k, v]) => <div><dt class="font-mono text-[0.7rem] tracking-widest text-fg-3 uppercase">{k}</dt><dd class="font-medium">{v}</dd></div>)}
-      </dl>
-    )}
-    {p.highlights.length > 0 && <><h3 class="label">What I built</h3><ul class="bullets mb-5">{p.highlights.map(h => <li>{h}</li>)}</ul></>}
-    <div class="grid gap-3 text-fg-2"><Content /></div>
-    {links.length > 0 && (
-      <div class="mt-6 flex flex-wrap gap-2.5">
-        {links.map(l => <a href={l.url} target="_blank" rel="noopener" class:list={['btn', l.primary && 'btn-primary']}>{l.label}</a>)}
+    <h2 id="pd-title" class:list={['mb-6 text-[clamp(1.4rem,3vw,1.85rem)]', !media.length && 'pr-11']}>{p.title}</h2>
+    <div class="grid gap-x-8 gap-y-6 md:grid-cols-[1fr_15rem]">
+      <div class="grid content-start gap-6">
+        <section><h3 class="label">Overview</h3><div class="grid gap-3 text-fg-2"><Content /></div></section>
+        {p.highlights.length > 0 && <section><h3 class="label">My contribution</h3><ul class="bullets">{p.highlights.map(h => <li>{h}</li>)}</ul></section>}
+        {p.challenge && (
+          <section class="grid gap-3 sm:grid-cols-2">
+            <div class="rounded-md border border-line bg-surface-2 p-4"><h3 class="label !mb-1.5">Problem</h3><p class="text-fg-2">{p.challenge.problem}</p></div>
+            <div class="rounded-md border border-accent-line bg-accent-soft p-4"><h3 class="label !mb-1.5 !text-accent">Solution</h3><p class="text-fg-2">{p.challenge.solution}</p></div>
+          </section>
+        )}
+        {p.code && (
+          <section class="panel min-w-0">
+            <h3 class="panel-head !tracking-normal !normal-case">{p.code.file}</h3>
+            <pre class="overflow-x-auto p-4 font-mono text-[0.8rem] leading-relaxed text-fg"><code>{p.code.source}</code></pre>
+          </section>
+        )}
       </div>
-    )}
+      <div class="panel self-start">
+        <h3 class="panel-head">Details</h3>
+        {facts.length > 0 && <dl class="specs grid-cols-[auto_1fr] px-4 py-3.5">{facts.map(([k, v]) => <><dt>{k}</dt><dd>{v}</dd></>)}</dl>}
+        <div class="grid gap-2 border-t border-line p-4">
+          {p.github
+            ? <a href={p.github} target="_blank" rel="noopener" class="btn btn-primary">Source on GitHub</a>
+            : <span class="btn pointer-events-none opacity-50">Source not public yet</span>}
+          {p.links.map(l => <a href={l.url} target="_blank" rel="noopener" class="btn">{l.label}</a>)}
+        </div>
+        {p.tags.length > 0 && <ul class="flex flex-wrap gap-1.5 border-t border-line p-4">{p.tags.map(t => <li class="tag">{t}</li>)}</ul>}
+      </div>
+    </div>
   </div>
 </template>

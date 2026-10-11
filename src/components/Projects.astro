@@ -1,20 +1,19 @@
 ---
 import { getCollection } from 'astro:content';
+import { disciplines } from '../content.config.js';
 import Section from './Section.astro';
 import ProjectCard from './ProjectCard.astro';
 import ProjectDetail from './ProjectDetail.astro';
 
 const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
-// Filter chips, most-used tags first
-const counts = new Map();
-projects.flatMap(p => p.data.tags).forEach(t => counts.set(t, (counts.get(t) ?? 0) + 1));
-const tags = [['All', projects.length], ...[...counts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))];
+// Filter chips: one per discipline that has projects
+const tags = [['All', projects.length], ...disciplines.map(d => [d, projects.filter(p => p.data.discipline === d).length]).filter(([, n]) => n)];
 ---
-<Section id="projects" kicker="Selected work" title="Projects">
-  <p class="-mt-4 mb-7 text-fg-2">Open a project for the breakdown: my role, what I built, video and code.</p>
-  <div id="project-filters" class="mb-6 flex flex-wrap gap-2" role="group" aria-label="Filter projects by tag">
+<Section id="projects" index="01" kicker="Selected work" title="Projects">
+  <p class="-mt-4 mb-7 max-w-2xl text-fg-2">Open a project for the breakdown: my role, what I built, the problems I solved, and the code.</p>
+  <div id="project-filters" class="mb-6 flex flex-wrap gap-2" role="group" aria-label="Filter projects by discipline">
     {tags.map(([tag, count]) => (
-      <button type="button" class="filter-chip inline-flex min-h-9 cursor-pointer items-center gap-2 rounded-full border border-line bg-surface px-3.5 text-sm font-medium text-fg-2 hover:border-line-strong hover:text-fg aria-pressed:border-transparent aria-pressed:bg-accent aria-pressed:text-on-accent"
+      <button type="button" class="filter-chip inline-flex min-h-9 cursor-pointer items-center gap-2 rounded-md border border-line bg-surface px-3.5 text-sm font-medium text-fg-2 hover:border-line-strong hover:text-fg aria-pressed:border-transparent aria-pressed:bg-accent aria-pressed:text-on-accent"
         data-tag={tag} aria-pressed={String(tag === 'All')}>
         {tag}<span class="font-mono text-xs opacity-65">{count}</span>
       </button>
@@ -27,10 +26,10 @@ const tags = [['All', projects.length], ...[...counts].sort((a, b) => b[1] - a[1
   {projects.map(project => <ProjectDetail project={project} />)}
 
   <dialog id="project-dialog" aria-labelledby="pd-title"
-    class="m-auto max-h-[calc(100dvh-2rem)] w-[min(56rem,calc(100%-2rem))] overflow-y-auto overscroll-contain rounded-2xl border border-line bg-surface p-0 text-fg shadow-lift
+    class="m-auto max-h-[calc(100dvh-2rem)] w-[min(56rem,calc(100%-2rem))] overflow-y-auto overscroll-contain rounded-lg border border-line bg-surface p-0 text-fg shadow-lift
       max-[480px]:h-dvh max-[480px]:max-h-dvh max-[480px]:w-full max-[480px]:max-w-full max-[480px]:rounded-none max-[480px]:border-0">
     <button id="pd-close" type="button" aria-label="Close"
-      class="sticky top-3 z-10 float-right m-3 -mb-13 size-10 cursor-pointer rounded-full border border-line-strong bg-surface/85 text-2xl leading-none backdrop-blur hover:text-accent">&times;</button>
+      class="sticky top-3 z-10 float-right m-3 -mb-13 size-10 cursor-pointer rounded-md border border-line-strong bg-surface/85 text-2xl leading-none backdrop-blur hover:text-accent">&times;</button>
     <div id="pd-content"></div>
   </dialog>
 </Section>
@@ -48,6 +47,18 @@ const tags = [['All', projects.length], ...[...counts].sort((a, b) => b[1] - a[1
     const tag = chip.dataset.tag;
     cards.forEach(c => { c.hidden = tag !== 'All' && !JSON.parse(c.dataset.tags).includes(tag); });
     document.getElementById('project-empty').hidden = cards.some(c => !c.hidden);
+  });
+
+  // Cards with a clip play it on hover or keyboard focus, unless the visitor prefers less motion
+  const still = matchMedia('(prefers-reduced-motion: reduce)');
+  document.querySelectorAll('.card-clip').forEach(clip => {
+    const card = clip.closest('.project-card');
+    const play = () => { if (!still.matches) clip.play().catch(() => {}); };
+    const stop = () => clip.pause();
+    card.addEventListener('pointerenter', play);
+    card.addEventListener('focus', play);
+    card.addEventListener('pointerleave', stop);
+    card.addEventListener('blur', stop);
   });
 
   let lastFocus = null;

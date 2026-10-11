@@ -1,27 +1,33 @@
 ---
 const { project: { id, data: p } } = Astro.props;
 const cover = p.cover ?? p.images[0]?.src;
-const byline = [p.role, p.engine].filter(Boolean).join(' · ');
-const badges = [p.video && 'Video', p.github && 'Code', p.images.length > 1 && `${p.images.length} images`].filter(Boolean);
+const specs = [['Role', p.role], ['Team', p.team], ['Engine', p.engine]].filter(s => s[1]);
+const extras = [p.video && 'Video', p.github && 'Source', p.images.length > 1 && `${p.images.length} images`].filter(Boolean);
 ---
-<a href={`#project/${id}`} data-id={id} data-tags={JSON.stringify(p.tags)} aria-haspopup="dialog" aria-label={`Open details for ${p.title}`}
-  class:list={['project-card group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-line bg-surface text-left shadow-card transition hover:-translate-y-0.5 hover:border-accent-line hover:shadow-lift',
+<a href={`#project/${id}`} data-id={id} data-tags={JSON.stringify([p.discipline])} aria-haspopup="dialog" aria-label={`Open details for ${p.title}`}
+  class:list={['project-card panel group flex min-w-0 flex-col text-left transition hover:-translate-y-0.5 hover:border-accent-line hover:shadow-lift',
     p.featured && 'col-span-full md:flex-row']}>
-  <div class:list={['relative grid aspect-video place-items-center overflow-hidden bg-surface-2 font-display text-4xl font-bold text-accent', p.featured && 'md:aspect-auto md:min-h-72 md:basis-[55%]']}>
-    {cover ? <img src={cover} alt="" loading="lazy" class="size-full object-cover transition-transform duration-500 group-hover:scale-105" /> : p.title[0]}
-    {p.featured && <span class="absolute top-3 left-3 rounded-full bg-accent px-2.5 py-1.5 font-mono text-[0.7rem] leading-none tracking-widest text-on-accent uppercase">Featured</span>}
-  </div>
-  <div class:list={['flex flex-1 flex-col gap-2 p-5 text-[0.95rem]', p.featured && 'md:p-7']}>
-    <div class="flex items-baseline justify-between gap-3">
-      <h3 class:list={['text-lg font-semibold', p.featured && 'text-[clamp(1.3rem,3vw,1.6rem)]']}>{p.title}</h3>
-      {p.year && <span class="font-mono text-xs text-fg-3">{p.year}</span>}
+  <div class:list={['viewport grid aspect-video place-items-center overflow-hidden bg-surface-2 font-display text-4xl font-bold text-accent', p.featured && 'md:basis-[58%] md:self-center']}>
+    {cover ? <img src={cover} alt="" loading="lazy" class="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" /> : p.title[0]}
+    {p.clip && <video class="card-clip absolute inset-0 size-full object-cover opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100" src={p.clip} poster={cover} muted loop playsinline preload="none" aria-hidden="true"></video>}
+    <div class="absolute top-3.5 left-3.5 z-10 flex gap-1.5">
+      {p.featured && <span class="stamp !border-transparent !bg-accent !text-on-accent">Featured</span>}
+      {p.status && <span class="stamp">{p.status}</span>}
     </div>
-    {byline && <p class="font-mono text-xs text-accent">{byline}</p>}
+  </div>
+  <div class:list={['flex flex-1 flex-col gap-2.5 p-5 text-[0.95rem]', p.featured && 'md:p-7']}>
+    <p class="font-mono text-[0.7rem] tracking-widest text-fg-3 uppercase">{p.discipline}{p.year && ` · ${p.year}`}</p>
+    <h3 class:list={['text-lg font-semibold', p.featured && 'text-[clamp(1.3rem,3vw,1.7rem)]']}>{p.title}</h3>
     <p class="text-fg-2">{p.summary}</p>
-    {p.featured && p.highlights.length > 0 && <ul class="bullets">{p.highlights.slice(0, 3).map(h => <li>{h}</li>)}</ul>}
+    {p.featured && p.highlights.length > 0 && (
+      <div><p class="label !mb-2">My contribution</p><ul class="bullets">{p.highlights.slice(0, 3).map(h => <li>{h}</li>)}</ul></div>
+    )}
+    {specs.length > 0 && (
+      <dl class="specs mt-1 grid-cols-[auto_1fr] border-t border-line pt-3">{specs.map(([k, v]) => <><dt>{k}</dt><dd>{v}</dd></>)}</dl>
+    )}
     <div class="mt-auto flex flex-wrap items-end justify-between gap-2 pt-2">
       <ul class="flex flex-wrap gap-1.5">{p.tags.map(t => <li class="tag">{t}</li>)}</ul>
-      <div class="flex gap-1.5">{badges.map(b => <span class="rounded-md border border-line px-2 py-0.5 font-mono text-[0.7rem] text-fg-3">{b}</span>)}</div>
+      {extras.length > 0 && <p class="font-mono text-[0.7rem] text-fg-3">{extras.join(' · ')}</p>}
     </div>
   </div>
 </a>
