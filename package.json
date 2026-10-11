@@ -3,12 +3,13 @@
   "private": true,
   "description": "Dev tooling only. The site itself has no build step.",
   "scripts": {
-    "lint": "html-validate index.html && node --check js/main.js && node --check js/projects.js && node --check js/boot.js",
+    "lint": "html-validate index.html && for f in assets/js/*.js data/*.js; do node --check \"$f\" || exit 1; done",
     "test": "playwright test",
     "check": "npm run lint && npm test"
   },
   "devDependencies": {
     "@playwright/test": "1.56.1",
     "html-validate": "^9.0.0"
-  }
+  },
+  "type": "module"
 }
