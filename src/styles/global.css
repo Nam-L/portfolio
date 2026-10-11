@@ -92,13 +92,8 @@
   .field { @apply w-full rounded-md border border-line-strong bg-bg px-3 py-2.5 text-base text-fg focus:border-accent focus:ring-3 focus:ring-accent-soft focus:outline-none; }
 }
 
-/* Behind the intro: a warm glow where the highlighted project sits, over a faint dot grid that fades out */
-.hero-bg {
-  background:
-    radial-gradient(40rem 26rem at 78% 30%, var(--accent-soft), transparent 70%),
-    radial-gradient(circle, var(--line-strong) 1px, transparent 1.5px) 0 0 / 28px 28px;
-  mask-image: linear-gradient(to bottom, #000 55%, transparent);
-}
+/* Behind the intro: a soft warm glow where the highlighted project sits */
+.hero-bg { background: radial-gradient(40rem 26rem at 78% 30%, var(--accent-soft), transparent 70%); }
 /* Corner brackets around project media, like a camera viewport */
 .viewport { position: relative; }
 .viewport::after {
