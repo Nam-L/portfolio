@@ -10,14 +10,14 @@ export const showreel = '';
 
 // The strip of facts under the intro: [value, label]
 export const stats = [
-  ['6+ years', 'Software engineering, test automation and CI/CD'],
+  ['6+ years', 'Writing code in test automation and CI/CD'],
   ['First Class', 'BSc Games Design and Development'],
   ['Unreal Engine 4', 'Solo VR final project'],
   ['London', 'Open to relocation']
 ];
 
 export const about = [
-  "I have a First Class Honours degree in Games Design and Development and more than six years of professional software engineering behind me. I'm passionate about games and systems programming, and I bring a strong foundation in engineering discipline: delivery pipelines, code quality and collaborative development.",
+  "I have a First Class Honours degree in Games Design and Development and more than six years of professional experience writing code as a software developer in test, building automation suites and CI/CD pipelines. I'm passionate about games and systems programming, and I bring a strong foundation in engineering discipline: delivery pipelines, code quality and collaborative development.",
   "I'm now pursuing a move into the games industry as a gameplay or systems programmer, and I'm learning C++ to get there.",
   "Outside work I play a lot of JRPGs, MMOs, rhythm games and retro games. I'm an active Final Fantasy XIV and Destiny 2 player with a real interest in game systems design and player experience. I also run a self-hosted homelab of containerised services in Docker."
 ];
