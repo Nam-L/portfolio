@@ -35,6 +35,8 @@ jobs:
             echo '_Requested by **Nam**_'
             echo
             # Commit body, minus attribution trailers and any chat links
-            git log -1 --format=%b | grep -viE '^(co-authored-by|claude-session):|claude\.ai/code' || true
+            git log -1 --format=%b \
+              | grep -viE '^(co-authored-by|claude-session):' \
+              | sed -E 's#https?://claude\.ai/code[^ )>]*##g' || true
           } > body.md
           gh pr create --base main --head "$BRANCH" --title "$title" --body-file body.md
