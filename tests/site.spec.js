@@ -1,5 +1,5 @@
 // @ts-check
-const { test, expect } = require('@playwright/test');
+import { test, expect } from '@playwright/test';
 
 // Fail on any script error or any broken same-origin request (missing image, CSS, PDF...).
 test.beforeEach(async ({ page }) => {
@@ -21,7 +21,7 @@ test.afterEach(async ({ page }) => {
 });
 
 async function projects(page) {
-  return page.evaluate(() => window.PROJECTS);
+  return page.evaluate(async () => (await import('/data/projects.js')).projects);
 }
 
 test('page loads with all main sections', async ({ page }) => {
@@ -117,7 +117,8 @@ test('a project link opens that project directly', async ({ page }) => {
 
 test('video URLs become embeds', async ({ page }) => {
   await page.goto('./');
-  const embeds = await page.evaluate(() => {
+  const embeds = await page.evaluate(async () => {
+    const { videoEmbed } = await import('/assets/js/projects.js');
     const out = {};
     for (const url of ['https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://youtu.be/dQw4w9WgXcQ', 'https://vimeo.com/76979871', 'tests/fixtures/clip.mp4']) {
       const el = videoEmbed(url, 't');
@@ -185,8 +186,8 @@ test('header never overlaps or wraps at any width', async ({ page }) => {
       const links = [...document.querySelectorAll('#site-nav a')].map(a => a.getBoundingClientRect());
       const inline = getComputedStyle(document.getElementById('site-nav')).position !== 'absolute';
       return {
-        headerH: header.height, brandR: box('.brand').right, actL: box('.header-actions').left,
-        actR: box('.header-actions').right, vw: document.documentElement.clientWidth, inline,
+        headerH: header.height, brandR: box('.brand').right, actL: box('#theme-btn').left,
+        actR: Math.max(box('#theme-btn').right, box('#nav-toggle').right), vw: document.documentElement.clientWidth, inline,
         navL: inline ? links[0].left : null, navR: inline ? links[links.length - 1].right : null,
         spread: inline ? Math.max(...links.map(l => l.top)) - Math.min(...links.map(l => l.top)) : 0
       };
