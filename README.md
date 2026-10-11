@@ -64,6 +64,8 @@ The site is static, so the form posts to a form service. Create a form at [forms
 
 Every pull request runs `.github/workflows/ci.yml`: a [gitleaks](https://github.com/gitleaks/gitleaks) scan for committed secrets, HTML validation, a JS syntax check, and Playwright browser tests (desktop and mobile) that load the site under `/portfolio/` like GitHub Pages, fail on any script error or missing file, check every project's data and images, and click through filters, project details, the CV link and the contact form. They also check the layout never overflows on phone widths, the header never overlaps or wraps at any width from 320px to 1400px, and that windows narrower than 320px scale the page down instead of squashing it or scrolling sideways.
 
+Pushing a `claude/*` branch also runs `.github/workflows/auto-pr.yml`, which opens the pull request from the commit message so its description only contains what's in the commit. This needs **Settings → Actions → General → Allow GitHub Actions to create and approve pull requests** turned on.
+
 Run them locally:
 
 ```sh

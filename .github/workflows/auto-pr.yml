@@ -1,0 +1,40 @@
+name: Open PR
+
+# Opens a pull request when a claude/* branch is pushed, so the PR is created by
+# GitHub itself from the commit message and nothing else gets added to its
+# description. Needs "Allow GitHub Actions to create and approve pull requests"
+# turned on in Settings → Actions → General.
+
+on:
+  push:
+    branches: ['claude/**']
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  open-pr:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Open a PR for this branch if there isn't one
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          if [ -n "$(gh pr list --head "$BRANCH" --state open --json number --jq '.[].number')" ]; then
+            echo "A PR is already open for $BRANCH"
+            exit 0
+          fi
+          title="$(git log -1 --format=%s)"
+          {
+            echo '<!-- ccr-projects-attribution: {"github_login":"Nam-L"} -->'
+            echo '_Requested by **Nam**_'
+            echo
+            # Commit body, minus attribution trailers and any chat links
+            git log -1 --format=%b | grep -viE '^(co-authored-by|claude-session):|claude\.ai/code' || true
+          } > body.md
+          gh pr create --base main --head "$BRANCH" --title "$title" --body-file body.md
