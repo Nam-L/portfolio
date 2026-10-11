@@ -8,7 +8,7 @@ const spotlight = projects.find(p => p.data.featured) ?? projects[0];
 const s = spotlight?.data;
 ---
 <section id="top" class="relative isolate overflow-hidden pt-[clamp(3rem,9vw,6rem)] pb-[clamp(2.5rem,6vw,4rem)]">
-  <div class="hero-grid-bg absolute inset-0 -z-10"></div>
+  <div class="hero-bg absolute inset-0 -z-10"></div>
   <div class="container-page grid items-center gap-10 lg:grid-cols-[1.25fr_1fr] lg:gap-14">
     <div>
       <p class="inline-flex items-center gap-2 rounded-md border border-line bg-surface py-1 pr-3 pl-2.5 font-mono text-xs text-fg-2">
@@ -48,7 +48,7 @@ const s = spotlight?.data;
   <div class="container-page mt-[clamp(2.5rem,6vw,4rem)]">
     <dl class="grid grid-cols-2 overflow-hidden rounded-lg border border-line bg-line gap-px lg:grid-cols-4">
       {stats.map(([value, label]) => (
-        <div class="flex flex-col-reverse gap-1 bg-surface px-4 py-3.5"><dt class="text-sm text-fg-3">{label}</dt><dd class="font-mono text-[0.95rem] font-medium text-fg">{value}</dd></div>
+        <div class="flex flex-col-reverse justify-end gap-1 bg-surface px-4 py-3.5"><dt class="text-sm text-fg-3">{label}</dt><dd class="font-mono text-[0.95rem] font-medium text-fg">{value}</dd></div>
       ))}
     </dl>
   </div>

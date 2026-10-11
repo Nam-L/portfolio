@@ -92,14 +92,12 @@
   .field { @apply w-full rounded-md border border-line-strong bg-bg px-3 py-2.5 text-base text-fg focus:border-accent focus:ring-3 focus:ring-accent-soft focus:outline-none; }
 }
 
-/* Editor viewport grid behind the intro: minor and major lines */
-.hero-grid-bg {
+/* Behind the intro: a warm glow where the highlighted project sits, over a faint dot grid that fades out */
+.hero-bg {
   background:
-    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 96px 96px,
-    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 96px 96px,
-    linear-gradient(color-mix(in srgb, var(--line) 45%, transparent) 1px, transparent 1px) 0 0 / 24px 24px,
-    linear-gradient(90deg, color-mix(in srgb, var(--line) 45%, transparent) 1px, transparent 1px) 0 0 / 24px 24px;
-  mask-image: radial-gradient(ellipse 80% 90% at 70% 10%, #000 30%, transparent 75%);
+    radial-gradient(40rem 26rem at 78% 30%, var(--accent-soft), transparent 70%),
+    radial-gradient(circle, var(--line-strong) 1px, transparent 1.5px) 0 0 / 28px 28px;
+  mask-image: linear-gradient(to bottom, #000 55%, transparent);
 }
 /* Corner brackets around project media, like a camera viewport */
 .viewport { position: relative; }
