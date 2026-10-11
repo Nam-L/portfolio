@@ -1,15 +1,21 @@
 {
   "name": "portfolio",
   "private": true,
-  "description": "Dev tooling only. The site itself has no build step.",
+  "description": "Nam Le's portfolio, built with Astro and Tailwind CSS.",
   "scripts": {
-    "lint": "html-validate index.html && for f in assets/js/*.js data/*.js; do node --check \"$f\" || exit 1; done",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "lint": "html-validate dist/index.html",
     "test": "playwright test",
-    "check": "npm run lint && npm test"
+    "check": "npm run build && npm run lint && npm test"
   },
   "devDependencies": {
     "@playwright/test": "1.56.1",
-    "html-validate": "^9.0.0"
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.8",
+    "html-validate": "^9.0.0",
+    "tailwindcss": "^4.3.3"
   },
   "type": "module"
 }

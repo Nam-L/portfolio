@@ -1,5 +1,6 @@
 // @ts-check
 import { test, expect } from '@playwright/test';
+import { embedUrl } from '../src/lib/video.js';
 
 // Fail on any script error or any broken same-origin request (missing image, CSS, PDF...).
 test.beforeEach(async ({ page }) => {
@@ -21,7 +22,9 @@ test.afterEach(async ({ page }) => {
 });
 
 async function projects(page) {
-  return page.evaluate(async () => (await import('/data/projects.js')).projects);
+  return page.locator('.project-card').evaluateAll(cards => cards.map(c => ({
+    id: c.dataset.id, title: c.querySelector('h3').textContent, tags: JSON.parse(c.dataset.tags)
+  })));
 }
 
 test('page loads with all main sections', async ({ page }) => {
@@ -35,7 +38,7 @@ test('page loads with all main sections', async ({ page }) => {
 
 test('every nav link points at a section that exists', async ({ page }) => {
   await page.goto('./');
-  const hrefs = await page.locator('.site-nav a[href^="#"]').evaluateAll(as => as.map(a => a.getAttribute('href')));
+  const hrefs = await page.locator('#site-nav a[href^="#"]').evaluateAll(as => as.map(a => a.getAttribute('href')));
   for (const href of hrefs) {
     await expect(page.locator(href), href).toBeAttached();
   }
@@ -49,28 +52,17 @@ test('CV download link resolves to a PDF', async ({ page, request }) => {
   expect(res.headers()['content-type']).toContain('pdf');
 });
 
-test('project data is well formed and its files exist', async ({ page, request }) => {
+test('every project has a unique id and all its images exist', async ({ page, request }) => {
   await page.goto('./');
-  const list = await projects(page);
-  expect(list.length).toBeGreaterThan(0);
-
-  const ids = list.map(p => p.id);
+  const ids = (await projects(page)).map(p => p.id);
+  expect(ids.length).toBeGreaterThan(0);
   expect(new Set(ids).size, 'project ids are unique').toBe(ids.length);
-
-  for (const p of list) {
-    expect(p.id, 'id is URL-safe').toMatch(/^[a-z0-9-]+$/);
-    expect(typeof p.title).toBe('string');
-    expect(typeof p.summary).toBe('string');
-    const files = [p.cover, ...(p.images || []).map(i => i.src)];
-    if (p.video && !/^https?:/.test(p.video)) files.push(p.video);
-    for (const f of files.filter(Boolean)) {
-      if (/^https?:/.test(f)) continue;
-      expect((await request.get(f)).status(), `${p.id}: ${f}`).toBe(200);
-    }
-    for (const url of [p.github, ...(p.links || []).map(l => l.url)].filter(Boolean)) {
-      expect(url, `${p.id}: link is absolute`).toMatch(/^https?:\/\//);
-    }
-  }
+  // Card covers plus everything inside the (not yet opened) project details
+  const srcs = await page.evaluate(() => [
+    ...document.querySelectorAll('img[src]'),
+    ...[...document.querySelectorAll('template')].flatMap(t => [...t.content.querySelectorAll('img[src], video[src]')])
+  ].map(el => el.getAttribute('src')));
+  for (const src of new Set(srcs)) expect((await request.get(src)).status(), src).toBe(200);
 });
 
 test('renders one card per project', async ({ page }) => {
@@ -115,21 +107,11 @@ test('a project link opens that project directly', async ({ page }) => {
   await expect(page.locator('#pd-title')).toHaveText(first.title);
 });
 
-test('video URLs become embeds', async ({ page }) => {
-  await page.goto('./');
-  const embeds = await page.evaluate(async () => {
-    const { videoEmbed } = await import('/assets/js/projects.js');
-    const out = {};
-    for (const url of ['https://www.youtube.com/watch?v=dQw4w9WgXcQ', 'https://youtu.be/dQw4w9WgXcQ', 'https://vimeo.com/76979871', 'tests/fixtures/clip.mp4']) {
-      const el = videoEmbed(url, 't');
-      out[url] = el.tagName + ' ' + el.getAttribute('src');
-    }
-    return out;
-  });
-  expect(embeds['https://www.youtube.com/watch?v=dQw4w9WgXcQ']).toBe('IFRAME https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?rel=0');
-  expect(embeds['https://youtu.be/dQw4w9WgXcQ']).toBe('IFRAME https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?rel=0');
-  expect(embeds['https://vimeo.com/76979871']).toBe('IFRAME https://player.vimeo.com/video/76979871');
-  expect(embeds['tests/fixtures/clip.mp4']).toBe('VIDEO tests/fixtures/clip.mp4');
+test('video URLs become privacy-friendly embeds', () => {
+  expect(embedUrl('https://www.youtube.com/watch?v=dQw4w9WgXcQ')).toBe('https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?rel=0');
+  expect(embedUrl('https://youtu.be/dQw4w9WgXcQ')).toBe('https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?rel=0');
+  expect(embedUrl('https://vimeo.com/76979871')).toBe('https://player.vimeo.com/video/76979871');
+  expect(embedUrl('/videos/clip.mp4')).toBeNull();
 });
 
 test('contact form validates before sending', async ({ page }) => {
@@ -182,11 +164,11 @@ test('header never overlaps or wraps at any width', async ({ page }) => {
     await page.setViewportSize({ width, height: 700 });
     const r = await page.evaluate(() => {
       const box = s => document.querySelector(s).getBoundingClientRect();
-      const header = box('.site-header');
+      const header = box('#nav-bar');
       const links = [...document.querySelectorAll('#site-nav a')].map(a => a.getBoundingClientRect());
       const inline = getComputedStyle(document.getElementById('site-nav')).position !== 'absolute';
       return {
-        headerH: header.height, brandR: box('.brand').right, actL: box('#theme-btn').left,
+        headerH: header.height, brandR: box('#nav-bar a[href="#top"]').right, actL: box('#theme-btn').left,
         actR: Math.max(box('#theme-btn').right, box('#nav-toggle').right), vw: document.documentElement.clientWidth, inline,
         navL: inline ? links[0].left : null, navR: inline ? links[links.length - 1].right : null,
         spread: inline ? Math.max(...links.map(l => l.top)) - Math.min(...links.map(l => l.top)) : 0

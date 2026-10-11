@@ -1,0 +1,33 @@
+---
+import Icon from './Icon.astro';
+import { cv, email, github, linkedin, glance } from '../data/site.js';
+const socials = [[github, 'github', 'GitHub'], [linkedin, 'linkedin', 'LinkedIn'], [`mailto:${email}`, 'mail', 'Email']];
+---
+<section id="top" class="relative isolate overflow-hidden pt-[clamp(3rem,10vw,7rem)] pb-[clamp(3rem,8vw,5.5rem)]">
+  <div class="hero-grid-bg absolute inset-0 -z-10"></div>
+  <div class="container-page grid items-center gap-10 lg:grid-cols-[1.45fr_1fr] lg:gap-14">
+    <div>
+      <p class="inline-flex items-center gap-2 rounded-full border border-line bg-surface py-1 pr-3.5 pl-3 font-mono text-xs text-fg-2">
+        <span class="relative size-2 animate-blink rounded-full bg-live after:absolute after:inset-0 after:animate-ring after:rounded-full after:bg-live" aria-hidden="true"></span>
+        Open to gameplay &amp; systems roles
+      </p>
+      <h1 class="mt-5 text-[clamp(2.75rem,9vw,5.25rem)] leading-none font-bold tracking-tighter">Nam Le</h1>
+      <p class="mt-2.5 font-display text-[clamp(1.2rem,3vw,1.6rem)] font-semibold text-accent">Gameplay &amp; Systems Programmer</p>
+      <p class="mt-4 max-w-xl text-[clamp(1.02rem,2vw,1.15rem)] text-fg-2">Games Design and Development graduate (First Class) with 6+ years of professional software engineering, now moving into the games industry.</p>
+      <div class="mt-8 flex flex-wrap gap-3 max-[480px]:[&>*]:flex-1">
+        <a class="btn btn-primary" href="#projects">View my work</a>
+        <a class="btn" href={cv} download><Icon name="download" />Download CV</a>
+      </div>
+      <ul class="mt-6 flex flex-wrap gap-x-5 gap-y-2">
+        {socials.map(([href, icon, label]) => (
+          <li><a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noopener" class="inline-flex items-center gap-2 font-medium text-fg-2 hover:text-accent"><Icon name={icon} />{label}</a></li>
+        ))}
+      </ul>
+    </div>
+    <aside class="card py-2.5" aria-label="At a glance">
+      <dl class="divide-y divide-line">
+        {glance.map(([label, value]) => <div class="grid py-3"><dt class="text-sm text-fg-3">{label}</dt><dd class="font-medium">{value}</dd></div>)}
+      </dl>
+    </aside>
+  </div>
+</section>

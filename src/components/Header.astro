@@ -1,0 +1,66 @@
+---
+import Icon from './Icon.astro';
+import { cv } from '../data/site.js';
+const links = [['#projects', 'Work'], ['#about', 'About'], ['#experience', 'Experience'], ['#contact', 'Contact']];
+---
+<header id="nav-bar" class="sticky top-0 z-50 h-16 border-b border-transparent bg-bg/85 backdrop-blur-md backdrop-saturate-150 transition-colors [&.is-scrolled]:border-line">
+  <div class="container-page flex h-full items-center gap-2">
+    <a href="#top" class="mr-auto inline-flex items-center gap-2.5 font-display text-[1.05rem] font-bold whitespace-nowrap" aria-label="Nam Le, back to top">
+      <span class="grid size-8.5 place-items-center rounded-[9px] bg-accent text-xs text-on-accent" aria-hidden="true">NL</span>Nam Le
+    </a>
+    <nav id="site-nav" aria-label="Sections"
+      class="absolute inset-x-0 top-16 hidden flex-col gap-0.5 border-b border-line bg-bg px-[clamp(1rem,4vw,2rem)] pt-2 pb-4 shadow-card [&.open]:flex
+        md:static md:mr-2 md:flex md:flex-row md:items-center md:gap-1 md:border-0 md:bg-transparent md:p-0 md:shadow-none">
+      {links.map(([href, label]) => (
+        <a href={href} class="rounded-lg px-3.5 py-3 font-medium text-fg-2 hover:bg-surface-2 hover:text-fg md:rounded-full md:px-3 md:py-1.5 md:text-[0.92rem] [&.active]:bg-accent-soft [&.active]:text-accent">{label}</a>
+      ))}
+      <a href={cv} download class="mt-2 inline-flex items-center justify-center gap-1.5 rounded-full border border-line-strong px-3.5 py-3 font-medium hover:border-accent-line hover:text-accent md:mt-0 md:ml-2 md:px-3 md:py-1.5 md:text-[0.92rem]">
+        <Icon name="download" class="size-4" />CV
+      </a>
+    </nav>
+    <button id="theme-btn" class="icon-btn" type="button" aria-label="Switch to light theme">
+      <Icon name="sun" class="icon-sun" /><Icon name="moon" class="icon-moon" />
+    </button>
+    <button id="nav-toggle" class="icon-btn md:hidden" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+      <Icon name="menu" />
+    </button>
+  </div>
+</header>
+
+<script>
+  const html = document.documentElement;
+  const header = document.getElementById('nav-bar');
+  const nav = document.getElementById('site-nav');
+  const toggle = document.getElementById('nav-toggle');
+  const themeBtn = document.getElementById('theme-btn');
+
+  const syncTheme = () => themeBtn.setAttribute('aria-label', html.dataset.theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme');
+  themeBtn.addEventListener('click', () => {
+    html.dataset.theme = html.dataset.theme === 'light' ? 'dark' : 'light';
+    try { localStorage.setItem('theme', html.dataset.theme); } catch { /* storage blocked */ }
+    syncTheme();
+  });
+  syncTheme();
+
+  const setOpen = open => {
+    nav.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  };
+  toggle.addEventListener('click', () => setOpen(!nav.classList.contains('open')));
+  nav.addEventListener('click', e => { if (e.target.closest('a')) setOpen(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+
+  const onScroll = () => header.classList.toggle('is-scrolled', scrollY > 8);
+  addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Highlight the menu link for the section in the middle of the screen
+  const links = nav.querySelectorAll('a[href^="#"]');
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries.filter(e => e.isIntersecting)) {
+      links.forEach(a => a.classList.toggle('active', a.hash === `#${entry.target.id}`));
+    }
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
+</script>

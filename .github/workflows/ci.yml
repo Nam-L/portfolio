@@ -39,7 +39,12 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Validate HTML and JS
+      - name: Build the site
+        run: npm run build
+        env:
+          ASTRO_TELEMETRY_DISABLED: 1
+
+      - name: Validate the built HTML
         run: npm run lint
 
       - name: Browser tests (desktop + mobile)

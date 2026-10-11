@@ -1,0 +1,12 @@
+---
+const { id, kicker, title, alt = false, class: cls = '' } = Astro.props;
+---
+<section id={id} class:list={['py-[clamp(3.5rem,8vw,6rem)]', alt && 'border-y border-line bg-bg-alt']}>
+  <div class:list={['container-page', cls]}>
+    <slot name="head">
+      <p class="kicker">{kicker}</p>
+      <h2 class="mb-[clamp(1.25rem,3vw,2rem)] text-[clamp(1.75rem,4vw,2.4rem)]">{title}</h2>
+    </slot>
+    <slot />
+  </div>
+</section>
