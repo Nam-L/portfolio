@@ -2,6 +2,8 @@
 title: Game jam entry
 summary: Placeholder for a game built in a weekend jam.
 order: 4
+discipline: Game jams
+status: Jam build
 year: '2025'
 tags: [Game Jam, Gameplay]
 role: Programmer

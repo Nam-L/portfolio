@@ -34,22 +34,22 @@
 }
 
 :root {
-  --bg: #f6f7fb; --bg-alt: #eef0f6; --surface: #fff; --surface-2: #f2f4f9;
-  --line: rgb(17 24 39 / 0.09); --line-strong: rgb(17 24 39 / 0.16);
-  --fg: #111827; --fg-2: #475266; --fg-3: #6b7486;
-  --accent: #4353e0; --accent-strong: #3442c4; --accent-soft: rgb(67 83 224 / 0.09); --accent-line: rgb(67 83 224 / 0.28);
-  --on-accent: #fff; --live: #1f9d63; --danger: #c43d3d;
-  --shadow: 0 1px 2px rgb(17 24 39 / 0.05), 0 8px 24px rgb(17 24 39 / 0.06);
-  --shadow-lg: 0 24px 64px rgb(17 24 39 / 0.18);
+  --bg: #f5f4f0; --bg-alt: #edebe5; --surface: #fff; --surface-2: #f3f1ec;
+  --line: rgb(22 23 26 / 0.1); --line-strong: rgb(22 23 26 / 0.18);
+  --fg: #16171a; --fg-2: #4a4c52; --fg-3: #6b6d73;
+  --accent: #b45309; --accent-strong: #92400e; --accent-soft: rgb(180 83 9 / 0.08); --accent-line: rgb(180 83 9 / 0.3);
+  --on-accent: #fff; --live: #15803d; --danger: #c43d3d;
+  --shadow: 0 1px 2px rgb(22 23 26 / 0.05), 0 6px 20px rgb(22 23 26 / 0.05);
+  --shadow-lg: 0 24px 64px rgb(22 23 26 / 0.18);
 }
 [data-theme="dark"] {
-  --bg: #0a0c10; --bg-alt: #0e1117; --surface: #141820; --surface-2: #1a1f29;
-  --line: rgb(255 255 255 / 0.08); --line-strong: rgb(255 255 255 / 0.15);
-  --fg: #e8ebf1; --fg-2: #a4acbb; --fg-3: #7d8698;
-  --accent: #8b97ff; --accent-strong: #a3adff; --accent-soft: rgb(139 151 255 / 0.12); --accent-line: rgb(139 151 255 / 0.32);
-  --on-accent: #0a0c10; --live: #4cc08b; --danger: #f07171;
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.25);
-  --shadow-lg: 0 24px 64px rgb(0 0 0 / 0.55);
+  --bg: #0f1013; --bg-alt: #131418; --surface: #17191e; --surface-2: #1d2026;
+  --line: rgb(255 255 255 / 0.07); --line-strong: rgb(255 255 255 / 0.14);
+  --fg: #ebe9e4; --fg-2: #a9a7a1; --fg-3: #85837e;
+  --accent: #f2a541; --accent-strong: #ffbd66; --accent-soft: rgb(242 165 65 / 0.1); --accent-line: rgb(242 165 65 / 0.35);
+  --on-accent: #17130b; --live: #5fd38d; --danger: #f07171;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.35), 0 8px 24px rgb(0 0 0 / 0.25);
+  --shadow-lg: 0 24px 64px rgb(0 0 0 / 0.6);
 }
 
 @layer base {
@@ -67,29 +67,49 @@
 
 @layer components {
   .container-page { @apply mx-auto w-full max-w-[74rem] px-[clamp(1rem,4vw,2rem)]; }
-  .card { @apply rounded-2xl border border-line bg-surface p-6 shadow-card; }
+  .card { @apply rounded-lg border border-line bg-surface p-6 shadow-card; }
+  /* Editor-style panel: a titled header bar over the content */
+  .panel { @apply overflow-hidden rounded-lg border border-line bg-surface shadow-card; }
+  .panel-head { @apply flex items-center gap-2 border-b border-line bg-surface-2 px-4 py-2 font-mono text-[0.7rem] font-medium tracking-widest text-fg-3 uppercase before:size-1.5 before:rotate-45 before:bg-accent; }
   .btn {
-    @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full border border-line-strong bg-surface px-5 py-2.5
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-md border border-line-strong bg-surface px-5 py-2.5
       text-[0.95rem] leading-tight font-semibold whitespace-nowrap no-underline transition-colors hover:border-accent-line hover:text-accent disabled:opacity-60;
   }
   .btn-primary { @apply border-transparent bg-accent text-on-accent hover:border-transparent hover:bg-accent-strong hover:text-on-accent; }
-  .icon-btn { @apply inline-grid size-10 shrink-0 cursor-pointer place-items-center rounded-full border border-line text-fg-2 hover:border-accent-line hover:text-accent; }
-  .kicker { @apply mb-2 font-mono text-xs font-medium tracking-widest text-accent uppercase; }
+  .icon-btn { @apply inline-grid size-10 shrink-0 cursor-pointer place-items-center rounded-md border border-line text-fg-2 hover:border-accent-line hover:text-accent; }
+  .kicker { @apply mb-3 flex items-center gap-3 font-mono text-xs font-medium tracking-widest text-fg-3 uppercase after:h-px after:max-w-24 after:flex-1 after:bg-line-strong; }
+  .kicker b { @apply font-medium text-accent; }
   .label { @apply mb-3 font-mono text-xs font-medium tracking-widest text-fg-3 uppercase; }
-  .chip { @apply rounded-full border border-line bg-surface-2 px-3 py-1 text-sm font-medium text-fg-2; }
-  .tag { @apply inline-block rounded-md bg-accent-soft px-2 py-0.5 font-mono text-xs text-accent; }
+  .chip { @apply rounded-md border border-line bg-surface-2 px-3 py-1 text-sm font-medium text-fg-2; }
+  .tag { @apply inline-block rounded-sm border border-line px-1.5 py-0.5 font-mono text-[0.7rem] text-fg-2; }
+  .stamp { @apply inline-block rounded-sm border border-accent-line bg-bg/85 px-1.5 py-0.5 font-mono text-[0.68rem] leading-none tracking-widest text-accent uppercase backdrop-blur; }
+  /* Spec sheet: monospace key/value rows */
+  .specs { @apply grid gap-x-4 gap-y-1 font-mono text-xs; }
+  .specs dt { @apply text-fg-3 uppercase tracking-wider; }
+  .specs dd { @apply text-fg; }
   .bullets { @apply grid gap-2 text-fg-2; }
-  .bullets li { @apply relative pl-5 before:absolute before:top-[0.68em] before:left-0.5 before:size-1.5 before:rounded-[2px] before:bg-accent/70; }
-  .field { @apply w-full rounded-lg border border-line-strong bg-bg px-3 py-2.5 text-base text-fg focus:border-accent focus:ring-3 focus:ring-accent-soft focus:outline-none; }
+  .bullets li { @apply relative pl-5 before:absolute before:top-[0.68em] before:left-0.5 before:size-1.5 before:rotate-45 before:bg-accent/80; }
+  .field { @apply w-full rounded-md border border-line-strong bg-bg px-3 py-2.5 text-base text-fg focus:border-accent focus:ring-3 focus:ring-accent-soft focus:outline-none; }
 }
 
-/* Faint level-editor grid behind the intro */
-.hero-grid-bg {
+/* Behind the intro: a warm glow where the highlighted project sits, over a faint dot grid that fades out */
+.hero-bg {
   background:
-    radial-gradient(60rem 30rem at 15% 0%, var(--accent-soft), transparent 70%),
-    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 48px 48px,
-    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 48px 48px;
-  mask-image: linear-gradient(to bottom, #000 40%, transparent);
+    radial-gradient(40rem 26rem at 78% 30%, var(--accent-soft), transparent 70%),
+    radial-gradient(circle, var(--line-strong) 1px, transparent 1.5px) 0 0 / 28px 28px;
+  mask-image: linear-gradient(to bottom, #000 55%, transparent);
+}
+/* Corner brackets around project media, like a camera viewport */
+.viewport { position: relative; }
+.viewport::after {
+  content: ""; position: absolute; inset: 0.6rem; pointer-events: none; opacity: 0.75;
+  --c: rgb(255 255 255 / 0.7); --l: 14px;
+  background:
+    linear-gradient(var(--c), var(--c)) top left / var(--l) 1.5px, linear-gradient(var(--c), var(--c)) top left / 1.5px var(--l),
+    linear-gradient(var(--c), var(--c)) top right / var(--l) 1.5px, linear-gradient(var(--c), var(--c)) top right / 1.5px var(--l),
+    linear-gradient(var(--c), var(--c)) bottom left / var(--l) 1.5px, linear-gradient(var(--c), var(--c)) bottom left / 1.5px var(--l),
+    linear-gradient(var(--c), var(--c)) bottom right / var(--l) 1.5px, linear-gradient(var(--c), var(--c)) bottom right / 1.5px var(--l);
+  background-repeat: no-repeat;
 }
 [data-theme="dark"] .icon-moon, [data-theme="light"] .icon-sun { display: none; }
 dialog::backdrop { background: rgb(5 8 14 / 0.65); backdrop-filter: blur(4px); }

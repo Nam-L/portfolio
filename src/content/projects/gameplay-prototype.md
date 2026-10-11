@@ -2,6 +2,8 @@
 title: Gameplay prototype
 summary: Placeholder for a small prototype exploring a single mechanic.
 order: 3
+discipline: Gameplay
+status: Prototype
 year: '2025'
 tags: [Prototype, Gameplay]
 role: Gameplay programmer

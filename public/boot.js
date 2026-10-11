@@ -2,12 +2,10 @@
 (function () {
   var html = document.documentElement;
 
-  // Theme: the visitor's saved choice, otherwise their system setting.
+  // Theme: the visitor's saved choice, otherwise dark.
   var theme = null;
   try { theme = localStorage.getItem('theme'); } catch (e) { /* storage blocked */ }
-  if (theme !== 'light' && theme !== 'dark') {
-    theme = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-  }
+  if (theme !== 'light') theme = 'dark';
   html.setAttribute('data-theme', theme);
 
   // Minimum width: the layout never gets narrower than MIN_WIDTH. In a window

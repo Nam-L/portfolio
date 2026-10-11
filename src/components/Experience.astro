@@ -6,14 +6,14 @@ import { cv, experience, education as edu } from '../data/site.js';
 <Section id="experience" class="grid gap-10 lg:grid-cols-[1.6fr_1fr] lg:gap-14">
   <div slot="head" class="col-span-full -mb-4 flex flex-wrap items-end justify-between gap-x-8 gap-y-4">
     <div>
-      <p class="kicker">Résumé</p>
+      <p class="kicker"><b>03</b>Résumé</p>
       <h2 class="text-[clamp(1.75rem,4vw,2.4rem)]">Experience &amp; education</h2>
     </div>
     <a class="btn max-[480px]:w-full" href={cv} download><Icon name="download" />Full CV (PDF)</a>
   </div>
   <ol class="grid gap-8 border-l-2 border-line-strong">
     {experience.map((job, i) => (
-      <li class:list={['relative pl-6 before:absolute before:top-1.5 before:-left-[7px] before:size-3 before:rounded-full before:border-2 before:border-accent', i === 0 ? 'before:bg-accent' : 'before:bg-bg']}>
+      <li class:list={['relative pl-6 before:absolute before:top-1.5 before:-left-[7px] before:size-3 before:rotate-45 before:border-2 before:border-accent', i === 0 ? 'before:bg-accent' : 'before:bg-bg']}>
         <p class="font-mono text-xs text-fg-3">{job.dates}</p>
         <h3 class="mt-1 text-lg">{job.role}</h3>
         <p class="mb-3 font-medium text-accent">{job.company}</p>
@@ -21,16 +21,18 @@ import { cv, experience, education as edu } from '../data/site.js';
       </li>
     ))}
   </ol>
-  <div id="education">
-    <h3 class="label">Education</h3>
-    <article class="card">
-      <p class="font-mono text-xs text-fg-3">{edu.dates}</p>
-      <h4 class="mt-1 text-lg">{edu.degree}</h4>
-      <p class="mb-2.5 font-medium text-accent">{edu.school}</p>
-      <p class="tag">{edu.grade}</p>
-      <p class="my-4 text-[0.95rem] text-fg-2">{edu.note}</p>
-      <p class="label !mb-2">Modules</p>
-      <ul class="flex flex-wrap gap-1.5">{edu.modules.map(m => <li class="chip">{m}</li>)}</ul>
+  <div id="education" class="self-start">
+    <article class="panel">
+      <h3 class="panel-head">Education</h3>
+      <div class="p-6">
+        <p class="font-mono text-xs text-fg-3">{edu.dates}</p>
+        <h4 class="mt-1 text-lg">{edu.degree}</h4>
+        <p class="mb-2.5 font-medium text-accent">{edu.school}</p>
+        <p class="stamp">{edu.grade}</p>
+        <p class="my-4 text-[0.95rem] text-fg-2">{edu.note}</p>
+        <p class="label !mb-2">Modules</p>
+        <ul class="flex flex-wrap gap-1.5">{edu.modules.map(m => <li class="chip">{m}</li>)}</ul>
+      </div>
     </article>
   </div>
 </Section>

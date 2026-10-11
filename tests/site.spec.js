@@ -71,11 +71,10 @@ test('renders one card per project', async ({ page }) => {
   await expect(page.locator('.project-card')).toHaveCount(list.length);
 });
 
-test('tag filters show only matching projects', async ({ page }) => {
+test('discipline filters show only matching projects', async ({ page }) => {
   await page.goto('./');
   const list = await projects(page);
-  const tag = list.flatMap(p => p.tags || [])[0];
-  test.skip(!tag, 'no tags defined');
+  const tag = list[0].tags[0];
   const expected = list.filter(p => (p.tags || []).includes(tag)).length;
 
   await page.locator('.filter-chip', { hasText: tag }).first().click();

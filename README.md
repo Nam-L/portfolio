@@ -26,7 +26,7 @@ npm run dev      # http://localhost:4321, reloads on save
 
 ## Projects
 
-Each project is a Markdown file in `src/content/projects/`. Copy one to add a project and delete one to remove it. The file name is the project's link (`/#project/vr-game`), `order` sets its place on the page, and the text under the front matter is the write-up shown in its detail view. Filter chips are built from the projects' `tags`. Only `title` and `summary` are required.
+Each project is a Markdown file in `src/content/projects/`. Copy one to add a project and delete one to remove it. The file name is the project's link (`/#project/vr-game`), `order` sets its place on the page, and the text under the front matter is the overview shown in its detail view. The filters are the `discipline` values (Gameplay, Systems & C++, Tools & CI, Game jams; the list is in `src/content.config.js`). Only `title`, `summary` and `discipline` are required. The featured project (or the first one) is also shown in the intro on wide screens.
 
 ```md
 ---
@@ -34,18 +34,29 @@ title: My project
 summary: Shown on the card.
 order: 1
 featured: true                 # large card at the top of the grid
+discipline: Gameplay
+status: Prototype              # stamp on the card: Prototype, Jam build, Shipped...
 year: '2025'
 tags: [Unreal Engine, C++]
 role: Gameplay programmer
 team: Team of 4
 engine: Unreal Engine 5
 platform: PC
-highlights:                    # "What I built", what recruiters look for
+duration: 3 months
+highlights:                    # "My contribution", what recruiters look for
   - Built the combat system
+challenge:                     # one problem you solved and how
+  problem: Enemies clipped through walls at high speed.
+  solution: Swept collision for fast movers, which fixed it at no frame cost.
+code:                          # a short excerpt shown in the details
+  file: CombatComponent.cpp
+  source: |
+    void UCombatComponent::Attack() { ... }
 cover: /images/projects/my-project.jpg   # defaults to the first image
 images:
   - { src: /images/projects/my-project-2.jpg, alt: Boss fight }
 video: https://www.youtube.com/watch?v=VIDEO_ID   # YouTube, Vimeo or a file in public/
+clip: /videos/my-project.mp4   # short muted loop that plays on the card on hover
 github: https://github.com/Nam-L/my-project
 links:
   - { label: Play on itch.io, url: https://example.itch.io/my-project }

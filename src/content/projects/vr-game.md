@@ -3,6 +3,8 @@ title: Stereoscopic VR game
 summary: Solo-developed stereoscopic VR game in Unreal Engine 4 for Oculus Rift and motion controllers.
 order: 1
 featured: true
+discipline: Gameplay
+status: University project
 year: '2018'
 tags: [Unreal Engine, VR, Solo]
 role: Solo developer
@@ -12,6 +14,9 @@ platform: PC VR (Oculus Rift)
 highlights:
   - 'Placeholder: the systems you built, e.g. motion-controller interaction.'
   - 'Placeholder: a technical challenge you solved, e.g. VR comfort or performance.'
+challenge:
+  problem: 'Placeholder: a hard problem you hit, e.g. keeping a steady 90 fps for comfortable VR.'
+  solution: 'Placeholder: what you changed and the result, e.g. which optimisations you made and how much they gained.'
 images:
   - { src: /images/projects/vr-game.svg, alt: Gameplay (placeholder) }
   - { src: /images/projects/vr-game-2.svg, alt: Level design (placeholder) }

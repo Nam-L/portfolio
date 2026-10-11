@@ -5,7 +5,7 @@ const label = 'grid min-w-0 gap-1.5 text-sm font-semibold';
 ---
 <Section id="contact" alt class="grid gap-10 lg:grid-cols-2 lg:gap-14">
   <div slot="head">
-    <p class="kicker">Contact</p>
+    <p class="kicker"><b>04</b>Contact</p>
     <h2 class="mb-[clamp(1.25rem,3vw,2rem)] text-[clamp(1.75rem,4vw,2.4rem)]">Let's talk</h2>
     <p class="text-[1.05rem] text-fg-2">I'm looking for gameplay or systems programming roles and I'm open to relocating for the right opportunity. The quickest way to reach me is email.</p>
     <a href={`mailto:${email}`} class="mt-5 mb-4 inline-block font-display text-[clamp(1.1rem,3.5vw,1.45rem)] font-semibold break-all text-accent hover:underline">{email}</a>
@@ -15,7 +15,7 @@ const label = 'grid min-w-0 gap-1.5 text-sm font-semibold';
       <li><a class="hover:text-accent" href={cv} download>CV (PDF)</a></li>
     </ul>
   </div>
-  <form id="contact-form" class="card grid gap-4 self-start sm:grid-cols-2 [&.was-validated_:invalid]:border-danger" novalidate data-email={email}>
+  <form id="contact-form" class="panel grid gap-4 self-start p-6 sm:grid-cols-2 [&.was-validated_:invalid]:border-danger" novalidate data-email={email}>
     <label class={label}>Name <input id="cf-name" class="field" name="name" type="text" autocomplete="name" required></label>
     <label class={label}>Email <input id="cf-email" class="field" name="email" type="email" autocomplete="email" required></label>
     <label class:list={[label, 'sm:col-span-2']}>Message <textarea id="cf-message" class="field min-h-32 resize-y" name="message" rows="5" required></textarea></label>

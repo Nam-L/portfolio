@@ -8,12 +8,12 @@ export const linkedin = 'https://linkedin.com/in/namnl';
 // YouTube/Vimeo URL or a video file in public/. Leave empty to hide the showreel.
 export const showreel = '';
 
-export const glance = [
-  ['Looking for', 'Gameplay or systems programmer roles'],
-  ['Engine', 'Unreal Engine 4'],
-  ['Languages', 'C#, Python, TypeScript, Java. Learning C++'],
-  ['Background', '6+ years in software engineering, test automation and CI/CD'],
-  ['Based in', 'London, UK. Open to relocation']
+// The strip of facts under the intro: [value, label]
+export const stats = [
+  ['6+ years', 'Software engineering, test automation and CI/CD'],
+  ['First Class', 'BSc Games Design and Development'],
+  ['Unreal Engine 4', 'Solo VR final project'],
+  ['London', 'Open to relocation']
 ];
 
 export const about = [
