@@ -1,0 +1,73 @@
+---
+import Section from './Section.astro';
+import { cv, email, github, linkedin } from '../data/site.js';
+const label = 'grid min-w-0 gap-1.5 text-sm font-semibold';
+---
+<Section id="contact" alt class="grid gap-10 lg:grid-cols-2 lg:gap-14">
+  <div slot="head">
+    <p class="kicker">Contact</p>
+    <h2 class="mb-[clamp(1.25rem,3vw,2rem)] text-[clamp(1.75rem,4vw,2.4rem)]">Let's talk</h2>
+    <p class="text-[1.05rem] text-fg-2">I'm looking for gameplay or systems programming roles and I'm open to relocating for the right opportunity. The quickest way to reach me is email.</p>
+    <a href={`mailto:${email}`} class="mt-5 mb-4 inline-block font-display text-[clamp(1.1rem,3.5vw,1.45rem)] font-semibold break-all text-accent hover:underline">{email}</a>
+    <ul class="flex flex-wrap gap-x-5 gap-y-2 font-medium text-fg-2">
+      <li><a class="hover:text-accent" href={linkedin} target="_blank" rel="noopener">LinkedIn</a></li>
+      <li><a class="hover:text-accent" href={github} target="_blank" rel="noopener">GitHub</a></li>
+      <li><a class="hover:text-accent" href={cv} download>CV (PDF)</a></li>
+    </ul>
+  </div>
+  <form id="contact-form" class="card grid gap-4 self-start sm:grid-cols-2 [&.was-validated_:invalid]:border-danger" novalidate data-email={email}>
+    <label class={label}>Name <input id="cf-name" class="field" name="name" type="text" autocomplete="name" required></label>
+    <label class={label}>Email <input id="cf-email" class="field" name="email" type="email" autocomplete="email" required></label>
+    <label class:list={[label, 'sm:col-span-2']}>Message <textarea id="cf-message" class="field min-h-32 resize-y" name="message" rows="5" required></textarea></label>
+    <input class="absolute -left-[9999px] size-px opacity-0" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="flex flex-wrap items-center gap-x-4 gap-y-3 sm:col-span-2">
+      <button class="btn btn-primary" type="submit">Send message</button>
+      <p id="form-status" class="text-sm text-fg-2 data-[kind=error]:text-danger data-[kind=success]:text-live" role="status" aria-live="polite"></p>
+    </div>
+  </form>
+</Section>
+
+<script>
+  // To send messages without opening the visitor's email app, set this to a form
+  // endpoint such as one from https://formspree.io ('https://formspree.io/f/abcdwxyz').
+  const FORM_ENDPOINT = '';
+
+  const form = document.getElementById('contact-form');
+  const status = document.getElementById('form-status');
+  const email = form.dataset.email;
+  const setStatus = (text, kind = '') => { status.textContent = text; status.dataset.kind = kind; };
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      form.classList.add('was-validated');
+      setStatus('Please fill in your name, a valid email and a message.', 'error');
+      form.querySelector(':invalid').focus();
+      return;
+    }
+    const data = new FormData(form);
+    if (data.get('_gotcha')) return; // honeypot filled in: a bot
+
+    if (!FORM_ENDPOINT) {
+      const subject = encodeURIComponent(`Portfolio enquiry from ${data.get('name')}`);
+      const body = encodeURIComponent(`${data.get('message')}\n\n${data.get('name')} <${data.get('email')}>`);
+      location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+      setStatus('Opening your email app…');
+      return;
+    }
+    const button = form.querySelector('button[type="submit"]');
+    button.disabled = true;
+    setStatus('Sending…');
+    try {
+      const res = await fetch(FORM_ENDPOINT, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      form.reset();
+      form.classList.remove('was-validated');
+      setStatus('Thanks, your message has been sent.', 'success');
+    } catch {
+      setStatus(`Something went wrong. Please email ${email} instead.`, 'error');
+    } finally {
+      button.disabled = false;
+    }
+  });
+</script>

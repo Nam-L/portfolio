@@ -1,0 +1,88 @@
+---
+import { getCollection } from 'astro:content';
+import Section from './Section.astro';
+import ProjectCard from './ProjectCard.astro';
+import ProjectDetail from './ProjectDetail.astro';
+
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+// Filter chips, most-used tags first
+const counts = new Map();
+projects.flatMap(p => p.data.tags).forEach(t => counts.set(t, (counts.get(t) ?? 0) + 1));
+const tags = [['All', projects.length], ...[...counts].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))];
+---
+<Section id="projects" kicker="Selected work" title="Projects">
+  <p class="-mt-4 mb-7 text-fg-2">Open a project for the breakdown: my role, what I built, video and code.</p>
+  <div id="project-filters" class="mb-6 flex flex-wrap gap-2" role="group" aria-label="Filter projects by tag">
+    {tags.map(([tag, count]) => (
+      <button type="button" class="filter-chip inline-flex min-h-9 cursor-pointer items-center gap-2 rounded-full border border-line bg-surface px-3.5 text-sm font-medium text-fg-2 hover:border-line-strong hover:text-fg aria-pressed:border-transparent aria-pressed:bg-accent aria-pressed:text-on-accent"
+        data-tag={tag} aria-pressed={String(tag === 'All')}>
+        {tag}<span class="font-mono text-xs opacity-65">{count}</span>
+      </button>
+    ))}
+  </div>
+  <p id="project-empty" class="text-fg-2" hidden>No projects match that filter.</p>
+  <div id="project-grid" class="grid grid-cols-[repeat(auto-fill,minmax(min(100%,19rem),1fr))] gap-5">
+    {projects.map(project => <ProjectCard project={project} />)}
+  </div>
+  {projects.map(project => <ProjectDetail project={project} />)}
+
+  <dialog id="project-dialog" aria-labelledby="pd-title"
+    class="m-auto max-h-[calc(100dvh-2rem)] w-[min(56rem,calc(100%-2rem))] overflow-y-auto overscroll-contain rounded-2xl border border-line bg-surface p-0 text-fg shadow-lift
+      max-[480px]:h-dvh max-[480px]:max-h-dvh max-[480px]:w-full max-[480px]:max-w-full max-[480px]:rounded-none max-[480px]:border-0">
+    <button id="pd-close" type="button" aria-label="Close"
+      class="sticky top-3 z-10 float-right m-3 -mb-13 size-10 cursor-pointer rounded-full border border-line-strong bg-surface/85 text-2xl leading-none backdrop-blur hover:text-accent">&times;</button>
+    <div id="pd-content"></div>
+  </dialog>
+</Section>
+
+<script>
+  const filters = document.getElementById('project-filters');
+  const dialog = document.getElementById('project-dialog');
+  const content = document.getElementById('pd-content');
+  const cards = [...document.querySelectorAll('.project-card')];
+
+  filters.addEventListener('click', e => {
+    const chip = e.target.closest('.filter-chip');
+    if (!chip) return;
+    filters.querySelectorAll('.filter-chip').forEach(c => c.setAttribute('aria-pressed', String(c === chip)));
+    const tag = chip.dataset.tag;
+    cards.forEach(c => { c.hidden = tag !== 'All' && !JSON.parse(c.dataset.tags).includes(tag); });
+    document.getElementById('project-empty').hidden = cards.some(c => !c.hidden);
+  });
+
+  let lastFocus = null;
+  // Cards link to #project/<id>, so opening a project always goes through the URL
+  function open(id) {
+    const template = document.querySelector(`template[data-project="${CSS.escape(id)}"]`);
+    if (!template) return;
+    content.replaceChildren(template.content.cloneNode(true));
+    // Media gallery: thumbnails switch the visible slide
+    const slides = content.querySelectorAll('.pd-slide');
+    content.querySelectorAll('.pd-thumb').forEach((thumb, i, thumbs) => thumb.addEventListener('click', () => {
+      thumbs.forEach(t => t === thumb ? t.setAttribute('aria-current', 'true') : t.removeAttribute('aria-current'));
+      slides.forEach((s, j) => { s.hidden = j !== i; });
+    }));
+    if (!dialog.open) {
+      lastFocus = document.activeElement;
+      dialog.showModal();
+      document.body.classList.add('overflow-hidden');
+    }
+    dialog.scrollTop = 0;
+  }
+
+  document.getElementById('pd-close').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); }); // backdrop
+  dialog.addEventListener('close', () => {
+    content.replaceChildren(); // stops any playing video
+    document.body.classList.remove('overflow-hidden');
+    if (location.hash.startsWith('#project/')) history.replaceState(null, '', '#projects');
+    lastFocus?.focus({ preventScroll: true });
+  });
+
+  const fromHash = () => {
+    const m = location.hash.match(/^#project\/(.+)$/);
+    if (m) open(decodeURIComponent(m[1]));
+  };
+  addEventListener('hashchange', fromHash);
+  fromHash();
+</script>

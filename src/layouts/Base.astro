@@ -1,0 +1,30 @@
+---
+import '../styles/global.css';
+const { title, description } = Astro.props;
+const csp = [
+  "default-src 'self'", "script-src 'self'", "style-src 'self' https://fonts.googleapis.com",
+  'font-src https://fonts.gstatic.com', "img-src 'self' data:", "media-src 'self'",
+  'frame-src https://www.youtube-nocookie.com https://player.vimeo.com', "connect-src 'self' https://formspree.io",
+  "object-src 'none'", "base-uri 'self'", "form-action 'self'"
+].join('; ');
+---
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content={csp}>
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="description" content={description}>
+    <meta name="color-scheme" content="dark light">
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+    <script is:inline src="/boot.js"></script>
+  </head>
+  <body>
+    <a href="#main" class="absolute -top-12 left-4 z-[100] rounded-lg bg-accent px-3.5 py-2 font-semibold text-on-accent focus:top-3">Skip to content</a>
+    <slot />
+  </body>
+</html>

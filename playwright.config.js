@@ -12,7 +12,7 @@ export default defineConfig({
     { name: 'mobile', use: { ...devices['Pixel 7'] } }
   ],
   webServer: {
-    command: `python3 -m http.server ${PORT}`,
+    command: `python3 -m http.server ${PORT} -d dist`,
     url: `http://localhost:${PORT}/`,
     reuseExistingServer: !process.env.CI
   }

@@ -1,0 +1,27 @@
+---
+const { project: { id, data: p } } = Astro.props;
+const cover = p.cover ?? p.images[0]?.src;
+const byline = [p.role, p.engine].filter(Boolean).join(' · ');
+const badges = [p.video && 'Video', p.github && 'Code', p.images.length > 1 && `${p.images.length} images`].filter(Boolean);
+---
+<a href={`#project/${id}`} data-id={id} data-tags={JSON.stringify(p.tags)} aria-haspopup="dialog" aria-label={`Open details for ${p.title}`}
+  class:list={['project-card group flex min-w-0 flex-col overflow-hidden rounded-2xl border border-line bg-surface text-left shadow-card transition hover:-translate-y-0.5 hover:border-accent-line hover:shadow-lift',
+    p.featured && 'col-span-full md:flex-row']}>
+  <div class:list={['relative grid aspect-video place-items-center overflow-hidden bg-surface-2 font-display text-4xl font-bold text-accent', p.featured && 'md:aspect-auto md:min-h-72 md:basis-[55%]']}>
+    {cover ? <img src={cover} alt="" loading="lazy" class="size-full object-cover transition-transform duration-500 group-hover:scale-105" /> : p.title[0]}
+    {p.featured && <span class="absolute top-3 left-3 rounded-full bg-accent px-2.5 py-1.5 font-mono text-[0.7rem] leading-none tracking-widest text-on-accent uppercase">Featured</span>}
+  </div>
+  <div class:list={['flex flex-1 flex-col gap-2 p-5 text-[0.95rem]', p.featured && 'md:p-7']}>
+    <div class="flex items-baseline justify-between gap-3">
+      <h3 class:list={['text-lg font-semibold', p.featured && 'text-[clamp(1.3rem,3vw,1.6rem)]']}>{p.title}</h3>
+      {p.year && <span class="font-mono text-xs text-fg-3">{p.year}</span>}
+    </div>
+    {byline && <p class="font-mono text-xs text-accent">{byline}</p>}
+    <p class="text-fg-2">{p.summary}</p>
+    {p.featured && p.highlights.length > 0 && <ul class="bullets">{p.highlights.slice(0, 3).map(h => <li>{h}</li>)}</ul>}
+    <div class="mt-auto flex flex-wrap items-end justify-between gap-2 pt-2">
+      <ul class="flex flex-wrap gap-1.5">{p.tags.map(t => <li class="tag">{t}</li>)}</ul>
+      <div class="flex gap-1.5">{badges.map(b => <span class="rounded-md border border-line px-2 py-0.5 font-mono text-[0.7rem] text-fg-3">{b}</span>)}</div>
+    </div>
+  </div>
+</a>

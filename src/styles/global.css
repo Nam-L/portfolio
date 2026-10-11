@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+/* Colours switch with the theme, so utilities like bg-surface work in light and dark */
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-alt: var(--bg-alt);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-fg: var(--fg);
+  --color-fg-2: var(--fg-2);
+  --color-fg-3: var(--fg-3);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-line: var(--accent-line);
+  --color-on-accent: var(--on-accent);
+  --color-live: var(--live);
+  --color-danger: var(--danger);
+  --shadow-card: var(--shadow);
+  --shadow-lift: var(--shadow-lg);
+}
+
+@theme {
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --breakpoint-lg: 56.25rem; /* 900px */
+  --animate-blink: blink 2.4s ease-in-out infinite;
+  --animate-ring: ring 2.4s ease-out infinite;
+  @keyframes blink { 50% { opacity: 0.55; } }
+  @keyframes ring { from { transform: scale(1); opacity: 0.6; } to { transform: scale(3); opacity: 0; } }
+}
+
+:root {
+  --bg: #f6f7fb; --bg-alt: #eef0f6; --surface: #fff; --surface-2: #f2f4f9;
+  --line: rgb(17 24 39 / 0.09); --line-strong: rgb(17 24 39 / 0.16);
+  --fg: #111827; --fg-2: #475266; --fg-3: #6b7486;
+  --accent: #4353e0; --accent-strong: #3442c4; --accent-soft: rgb(67 83 224 / 0.09); --accent-line: rgb(67 83 224 / 0.28);
+  --on-accent: #fff; --live: #1f9d63; --danger: #c43d3d;
+  --shadow: 0 1px 2px rgb(17 24 39 / 0.05), 0 8px 24px rgb(17 24 39 / 0.06);
+  --shadow-lg: 0 24px 64px rgb(17 24 39 / 0.18);
+}
+[data-theme="dark"] {
+  --bg: #0a0c10; --bg-alt: #0e1117; --surface: #141820; --surface-2: #1a1f29;
+  --line: rgb(255 255 255 / 0.08); --line-strong: rgb(255 255 255 / 0.15);
+  --fg: #e8ebf1; --fg-2: #a4acbb; --fg-3: #7d8698;
+  --accent: #8b97ff; --accent-strong: #a3adff; --accent-soft: rgb(139 151 255 / 0.12); --accent-line: rgb(139 151 255 / 0.32);
+  --on-accent: #0a0c10; --live: #4cc08b; --danger: #f07171;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.25);
+  --shadow-lg: 0 24px 64px rgb(0 0 0 / 0.55);
+}
+
+@layer base {
+  /* Narrowest layout. public/boot.js scales the page down in narrower windows. */
+  html, body { min-width: 320px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+  body { @apply bg-bg text-fg font-sans leading-relaxed antialiased; text-wrap: pretty; overflow-wrap: break-word; }
+  h1, h2, h3, h4 { @apply font-display leading-tight tracking-tight; }
+  :focus-visible { @apply outline-2 outline-offset-3 outline-accent rounded; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+}
+
+@layer components {
+  .container-page { @apply mx-auto w-full max-w-[74rem] px-[clamp(1rem,4vw,2rem)]; }
+  .card { @apply rounded-2xl border border-line bg-surface p-6 shadow-card; }
+  .btn {
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full border border-line-strong bg-surface px-5 py-2.5
+      text-[0.95rem] leading-tight font-semibold whitespace-nowrap no-underline transition-colors hover:border-accent-line hover:text-accent disabled:opacity-60;
+  }
+  .btn-primary { @apply border-transparent bg-accent text-on-accent hover:border-transparent hover:bg-accent-strong hover:text-on-accent; }
+  .icon-btn { @apply inline-grid size-10 shrink-0 cursor-pointer place-items-center rounded-full border border-line text-fg-2 hover:border-accent-line hover:text-accent; }
+  .kicker { @apply mb-2 font-mono text-xs font-medium tracking-widest text-accent uppercase; }
+  .label { @apply mb-3 font-mono text-xs font-medium tracking-widest text-fg-3 uppercase; }
+  .chip { @apply rounded-full border border-line bg-surface-2 px-3 py-1 text-sm font-medium text-fg-2; }
+  .tag { @apply inline-block rounded-md bg-accent-soft px-2 py-0.5 font-mono text-xs text-accent; }
+  .bullets { @apply grid gap-2 text-fg-2; }
+  .bullets li { @apply relative pl-5 before:absolute before:top-[0.68em] before:left-0.5 before:size-1.5 before:rounded-[2px] before:bg-accent/70; }
+  .field { @apply w-full rounded-lg border border-line-strong bg-bg px-3 py-2.5 text-base text-fg focus:border-accent focus:ring-3 focus:ring-accent-soft focus:outline-none; }
+}
+
+/* Faint level-editor grid behind the intro */
+.hero-grid-bg {
+  background:
+    radial-gradient(60rem 30rem at 15% 0%, var(--accent-soft), transparent 70%),
+    linear-gradient(var(--line) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0 / 48px 48px;
+  mask-image: linear-gradient(to bottom, #000 40%, transparent);
+}
+[data-theme="dark"] .icon-moon, [data-theme="light"] .icon-sun { display: none; }
+dialog::backdrop { background: rgb(5 8 14 / 0.65); backdrop-filter: blur(4px); }
