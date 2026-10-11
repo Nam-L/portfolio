@@ -3,7 +3,9 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [main]
+    # claude/* too: PRs opened by the "Open PR" workflow don't trigger
+    # pull_request runs, so the required check runs on the branch push instead.
+    branches: [main, 'claude/**']
 
 permissions:
   contents: read
