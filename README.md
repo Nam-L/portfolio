@@ -80,6 +80,8 @@ npx playwright install chromium
 npm run check
 ```
 
+`.github/workflows/review.yml` runs on every `claude/*` push: a separate Claude agent, defined in `.claude/agents/reviewer.md`, reviews the branch against the rules in `AGENTS.md` and fails the `review` check unless it approves. It takes the reviewer and the agent instructions from `main`, so a branch can't loosen its own review. `.github/CODEOWNERS` makes changes to CI, `.claude/` and the agent instructions wait for Nam's approval. Setup: add an `ANTHROPIC_API_KEY` repository secret, and in the branch protection for `main` add `review` as a required status check next to `check` and turn on **Require review from Code Owners** (with 0 required approvals, so other PRs still merge on their own).
+
 ## Deploying
 
 Merging to `main` runs `.github/workflows/deploy.yml`, which builds the site and publishes `dist/`. It needs **Settings → Pages → Source** set to **GitHub Actions**.

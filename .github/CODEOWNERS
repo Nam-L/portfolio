@@ -1,0 +1,6 @@
+# Changes to CI, the reviewer agent and the agent instructions need Nam's approval;
+# everything else auto-merges once "check" and "review" pass.
+/.github/ @Nam-L
+/.claude/ @Nam-L
+/AGENTS.md @Nam-L
+/CLAUDE.md @Nam-L

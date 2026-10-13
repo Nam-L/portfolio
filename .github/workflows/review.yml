@@ -1,0 +1,51 @@
+name: Review
+
+# A separate Claude agent (.claude/agents/reviewer.md) reviews every claude/*
+# branch, and the PR only auto-merges if it approves. Needs an ANTHROPIC_API_KEY
+# repository secret, "review" added next to "check" as a required status check
+# on main, and "Require review from Code Owners" turned on so a branch can't
+# edit this file (or the reviewer) without Nam's approval.
+
+on:
+  push:
+    branches: ['claude/**']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: review-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Claude Code loads CLAUDE.md, AGENTS.md and .claude/ from the working
+      # directory, so take them from main: a branch can't rewrite its reviewer,
+      # instruct it to approve, or add hooks that run with the API key.
+      - name: Use the reviewer and instructions from main
+        run: |
+          for f in .claude CLAUDE.md AGENTS.md; do
+            rm -rf "$f"
+            if git cat-file -e "origin/main:$f" 2>/dev/null; then git checkout origin/main -- "$f"; fi
+          done
+          # Until the reviewer is on main, the branch's copy is all there is
+          git cat-file -e origin/main:.claude/agents/reviewer.md 2>/dev/null \
+            || git checkout HEAD -- .claude/agents/reviewer.md
+
+      - name: Review the branch
+        shell: bash
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          npx -y @anthropic-ai/claude-code@2.1.296 -p "Review this branch: the commits in origin/main..HEAD." \
+            --agent reviewer --setting-sources project --strict-mcp-config \
+            --allowedTools Read Grep Glob 'Bash(git diff:*)' 'Bash(git log:*)' 'Bash(git show:*)' \
+            | tee review.md
+          grep -v '^\s*$' review.md | tail -n 1 | grep -qE '^VERDICT: APPROVE\s*$'

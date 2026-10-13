@@ -21,6 +21,7 @@ The audience is **game development recruiters** hiring gameplay and systems prog
 | `src/styles/global.css` | Tailwind theme, light/dark colours, shared classes (`.panel`, `.viewport`, `.stamp`, `.specs`) |
 | `public/` | Copied as-is: CV PDF, project images, `CNAME`, `boot.js` |
 | `tests/site.spec.js` | Playwright tests |
+| `.claude/agents/reviewer.md` | The review agent that approves or blocks each branch before it auto-merges |
 
 ## Commands
 
@@ -53,4 +54,5 @@ Playwright needs Chromium (`npx playwright install chromium`; in cloud sandboxes
 
 - Work on a `claude/*` branch and push it. `.github/workflows/auto-pr.yml` opens the PR from the last commit message, so write the subject as the PR title and the body as **Before:** / **After:** / **How:** paragraphs.
 - **No Claude session or chat links** (`claude.ai/code/...`) in commit messages or PR descriptions. A `Co-Authored-By` trailer is fine.
-- CI (`.github/workflows/ci.yml`, check name `check`) must pass. PRs squash-merge automatically once `check` is green; there is no manual review step. Merging to `main` deploys via `.github/workflows/deploy.yml`.
+- Before pushing, commit and run the `reviewer` subagent (`.claude/agents/reviewer.md`) on your branch. Fix everything it marks `BLOCK`; it judges the commit message too.
+- CI (`.github/workflows/ci.yml`, check name `check`) and the same reviewer in `.github/workflows/review.yml` (check name `review`) must pass. PRs squash-merge automatically once both are green; there is no human review step, except that the reviewer blocks, and `.github/CODEOWNERS` holds, changes to workflows, `.claude/` and these instructions until Nam approves them. Merging to `main` deploys via `.github/workflows/deploy.yml`.
